@@ -13,7 +13,7 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
   
 ## 🌟 Highlights
 
-- **X-as-service**: it makes every model cloud-native, and ready to be served as a GNES microservice.
+- **X-as-service**: it makes models cloud-native, and ready to be served as GNES microservices.
 - **Full autonomy**: model developers have the complete autonomy on what to install and to include for running the algorithms. 
 - **Simple interface**: override few methods and you are ready to go. Concentrate on the core logic of the algorithm, don't even worry about microservice, network communication, model persistence.
 - **Good for all**: the community can enjoy the state-of-the-art models without worrying about dependencies, model files, versioning, etc. Just `docker pull`!
