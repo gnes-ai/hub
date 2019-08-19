@@ -1,12 +1,15 @@
-# GNES Hub
+# 🚢 GNES Hub
 
-## What is GNES Hub?
-
-GNES Hub ship AI/ML models as Docker containers and use Docker containers as plugins. It offers a clean and sustainable way to port external algorithms (with the dependencies) into [GNES framework](https://github.com/gnes-ai/gnes).
+GNES Hub ship AI/ML models as Docker containers and use Docker containers as plugins. It offers a clean and sustainable way to port external algorithms (with the dependencies) into the [GNES framework](https://github.com/gnes-ai/gnes).
 
 GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/). 
 
-## Highlights
+* [🌟 Highlights](#---highlights)
+* [Structure](#structure-of-the-repository)
+* [Tutorial](#tutorial)
+* [Contributing](#contributing)  
+  
+## 🌟 Highlights
 
 - **X-as-service**: it makes every model cloud-native, and ready to be served as a GNES microservice.
 - **Full autonomy**: model developers have the complete autonomy on what to install and to include for running the algorithms. 
@@ -209,14 +212,6 @@ You can check whether the image can be run successfully via:
 ```bash
 docker run --rm gnes/hub-tutorial-transformers
 ```
-
-which outputs the following:
-
-<p align="center">
-<a href="https://gnes.ai">
-    <img src=".github/tutorial-run-success.svg" alt="GNES Hub build success">
-</a>
-</p>
 
 👏 Well done! Now you can run it as a standalone GNES encoder microservice.
 
