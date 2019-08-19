@@ -33,14 +33,14 @@ A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py
 
 ## Tutorial
 
-- [Porting `PyTorch-Transformers` into GNES](#porting--pytorch-transformers--into-gnes)
-  * [Breakdown of `transformer.py`](#breakdown-of--transformerpy-)
-    + [Implement `__init__` method](#implement----init----method)
-    + [Implement `post_init` method](#implement--post-init--method)
-    + [Implement `encode` method](#implement--encode--method)
-  * [Breakdown of `transformer.yml`](#breakdown-of--transformeryml-)
-  * [Breakdown of `Dockerfile`](#breakdown-of--dockerfile-)
-  * [🏁 Building `PyTorch-Transformers` image](#building--pytorch-transformers--image)
+- [Porting `PyTorch-Transformers` into GNES](#porting-pytorch-transformers-into-gnes)
+  * [Breakdown of `transformer.py`](#breakdown-of-transformerpy)
+    + [Implement `__init__` method](#implement-__init__-method)
+    + [Implement `post_init` method](#implement-post_init-method)
+    + [Implement `encode` method](#implement-encode-method)
+  * [Breakdown of `transformer.yml`](#breakdown-of-transformeryml)
+  * [Breakdown of `Dockerfile`](#breakdown-of-dockerfile)
+  * [🏁 Building `PyTorch-Transformers` image](#-building-pytorch-transformers-image)
 
 ### Porting `PyTorch-Transformers` into GNES
 
@@ -84,15 +84,9 @@ class PyTorchTransformers(BaseTextEncoder):
     
     def post_init(self):
         from pytorch_transformers import *
-                
-        MODELS = {k[-1]: k for k in
-                  [(BertModel, BertTokenizer, 'bert-base-uncased'),
-                   (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt'),
-                   (GPT2Model, GPT2Tokenizer, 'gpt2'),
-                   (TransfoXLModel, TransfoXLTokenizer, 'transfo-xl-wt103'),
-                   (XLNetModel, XLNetTokenizer, 'xlnet-base-cased'),
-                   (XLMModel, XLMTokenizer, 'xlm-mlm-enfr-1024'),
-                   (RobertaModel, RobertaTokenizer, 'roberta-base')]}
+        
+        MODELS = {k[-1]: k for k in [(BertModel, BertTokenizer, 'bert-base-uncased'), (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt'), # ...
+                   ]}
     
         # select the model, tokenizer & weight accordingly
         model_class, tokenizer_class, pretrained_weights = MODELS[self.model_name]
