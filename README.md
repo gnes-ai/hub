@@ -85,8 +85,8 @@ class PyTorchTransformers(BaseTextEncoder):
     def post_init(self):
         from pytorch_transformers import *
         
-        MODELS = {k[-1]: k for k in [(BertModel, BertTokenizer, 'bert-base-uncased'), (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt'), # ...
-                   ]}
+        MODELS = {k[-1]: k for k in [(BertModel, BertTokenizer, 'bert-base-uncased'), # ...
+        (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt')]}
     
         # select the model, tokenizer & weight accordingly
         model_class, tokenizer_class, pretrained_weights = MODELS[self.model_name]
