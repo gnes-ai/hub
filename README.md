@@ -1,5 +1,7 @@
 # 🚢 GNES Hub
 
+![GitHub](https://img.shields.io/github/license/gnes-ai/hub)
+
 GNES Hub ship AI/ML models as Docker containers and use Docker containers as plugins. It offers a clean and sustainable way to port external algorithms (with the dependencies) into the [GNES framework](https://github.com/gnes-ai/gnes).
 
 GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/). 
