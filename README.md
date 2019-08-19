@@ -33,6 +33,15 @@ A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py
 
 ## Tutorial
 
+- [Porting `PyTorch-Transformers` into GNES](#porting--pytorch-transformers--into-gnes)
+  * [Breakdown of `transformer.py`](#breakdown-of--transformerpy-)
+    + [Implement `__init__` method](#implement----init----method)
+    + [Implement `post_init` method](#implement--post-init--method)
+    + [Implement `encode` method](#implement--encode--method)
+  * [Breakdown of `transformer.yml`](#breakdown-of--transformeryml-)
+  * [Breakdown of `Dockerfile`](#breakdown-of--dockerfile-)
+  * [🏁 Building `PyTorch-Transformers` image](#building--pytorch-transformers--image)
+
 ### Porting `PyTorch-Transformers` into GNES
 
 In this section, I will show you how to port `PyTorch-Transformers` (a library of state-of-the-art pre-trained models) into GNES. It will help you understand the design of model management in GNES, i.e. *model as docker, docker as a plugin*.
@@ -185,9 +194,9 @@ ENTRYPOINT ["gnes", "encode", "--yaml_path", "transformer.yml", "--read_only"]
 
 I also add a simple unit test [`test_transformer.py`](tutorial/test_transformer.py), which simulates a round-trip through frontend, preprocessor and encoder services, making sure the communication is correct. In practice, you probably don't want to include this unit test especially if your `docker build` is conducted in a CICD pipeline, as the CI runner may not have enough memory to load the model.
 
-#### Building `PyTorch-Transformers` image
+#### 🏁 Building `PyTorch-Transformers` image
 
-We now build a self-contained Docker image that can be used as a GNES encoder microservice.
+Finally, we build a self-contained Docker image that can be used as a GNES encoder microservice.
 
 ```bash
 cd tutorial
