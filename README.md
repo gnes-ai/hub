@@ -4,7 +4,7 @@ GNES Hub ship AI/ML models as Docker containers and use Docker containers as plu
 
 GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/). 
 
-* [🌟 Highlights](#---highlights)
+* [Highlights](#-highlights)
 * [Structure](#structure-of-the-repository)
 * [Tutorial](#tutorial)
 * [Contributing](#contributing)  
