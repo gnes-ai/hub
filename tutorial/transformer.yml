@@ -1,0 +1,8 @@
+!PyTorchTransformers
+parameters:
+  model_name: bert-base-uncased
+gnes_config:
+  name: my_transformer  # a customized name
+  is_trained: true  # indicate the model has been trained
+  work_dir: $WORKSPACE
+  batch_size: 128

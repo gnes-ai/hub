@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="terminal" baseProfile="full" viewBox="0 0 727 421" width="727" version="1.1">
+    <defs>
+        <termtosvg:template_settings xmlns:termtosvg="https://github.com/nbedos/termtosvg">
+            <termtosvg:screen_geometry columns="85" rows="20"/>
+            <termtosvg:animation type="css"/>
+        </termtosvg:template_settings>
+        <style type="text/css" id="generated-style"><![CDATA[#screen {
+                font-family: 'DejaVu Sans Mono', monospace;
+                font-style: normal;
+                font-size: 14px;
+            }
+
+        text {
+            dominant-baseline: text-before-edge;
+            white-space: pre;
+        }
+    
+            :root {
+                --animation-duration: 2854ms;
+            }
+
+            @keyframes roll {
+                0.000%{transform:translateY(0px)}
+3.504%{transform:translateY(-374px)}
+7.008%{transform:translateY(-748px)}
+10.512%{transform:translateY(-1122px)}
+10.547%{transform:translateY(-1496px)}
+10.792%{transform:translateY(-1870px)}
+14.296%{transform:translateY(-2244px)}
+17.800%{transform:translateY(-2618px)}
+17.975%{transform:translateY(-2992px)}
+21.479%{transform:translateY(-3366px)}
+22.074%{transform:translateY(-3740px)}
+22.249%{transform:translateY(-4114px)}
+22.460%{transform:translateY(-4488px)}
+25.964%{transform:translateY(-4862px)}
+26.419%{transform:translateY(-5236px)}
+29.923%{transform:translateY(-5610px)}
+100.000%{transform:translateY(-5610px)}
+            }
+
+            #screen_view {
+                animation-duration: 2854ms;
+                animation-iteration-count:infinite;
+                animation-name:roll;
+                animation-timing-function: steps(1,end);
+                animation-fill-mode: forwards;
+            }
+        ]]></style>
+        <style type="text/css" id="user-style">
+            /* gjm8 color theme (source: https://terminal.sexy/) */
+            .foreground {fill: #f8f8f2}
+            .background {fill: #272822}
+            .color0 {fill: #272822}
+            .color1 {fill: #f92672}
+            .color2 {fill: #a6e22e}
+            .color3 {fill: #f4bf75}
+            .color4 {fill: #66d9ef}
+            .color5 {fill: #ae81ff}
+            .color6 {fill: #a1efe4}
+            .color7 {fill: #f8f8f2}
+            .color8 {fill: #75715e}
+            .color9 {fill: #fd971f}
+            .color10 {fill: #383830}
+            .color11 {fill: #49483e}
+            .color12 {fill: #a59f85}
+            .color13 {fill: #f5f4f1}
+            .color14 {fill: #cc6633}
+            .color15 {fill: #f9f8f5}
+        </style>
+    </defs>
+    <rect id="terminalui" class="background" width="100%" height="100%" ry="4.5826941"/>
+    <circle cx="24" cy="23" r="7" class="color1"/>
+    <circle cx="44" cy="23" r="7" class="color3"/>
+    <circle cx="64" cy="23" r="7" class="color2"/>
+    <svg id="screen" width="680" height="340" x="23" y="50" viewBox="0 0 680 340" preserveAspectRatio="xMidYMin slice">
+        <rect class="background" height="100%" width="100%" x="0" y="0"/><defs><g id="g1"><text x="0" textLength="48" class="foreground">gnes$ </text><text x="48" textLength="8" class="background"> </text></g><g id="g2"><text x="0" textLength="416" class="foreground">gnes$ docker run --rm gnes/hub-tutorial-transformers</text><text x="416" textLength="8" class="background"> </text></g><g id="g3"><text x="0" textLength="416" class="foreground">gnes$ docker run --rm gnes/hub-tutorial-transformers</text></g><g id="g4"><text x="0" textLength="8" class="background"> </text></g><g id="g5"><text x="0" textLength="248" class="foreground">I:EncoderService:[bas:_ru:290]:</text><text x="248" textLength="120" class="color7">bind sockets...</text></g><g id="g6"><text x="0" textLength="248" class="foreground">I:EncoderService:[bas:_ru:301]:</text><text x="248" textLength="112" class="color7">input 0.0.0.0:</text><text x="360" textLength="40" class="color3">53324</text><text x="448" textLength="128" class="foreground"> output 0.0.0.0:</text><text x="576" textLength="40" class="color3">58952</text><text x="640" textLength="40" class="foreground"> cont</text></g><g id="g7"><text x="0" textLength="72" class="foreground">rol over </text><text x="72" textLength="152" class="color3">tcp://0.0.0.0:53962</text></g><g id="g8"><text x="0" textLength="168" class="foreground">I:GNES:[hel:loa:507]:</text><text x="168" textLength="512" class="color7">find a value in $GNES_CONTRIB_MODULE=/workspace/transformer.py, </text></g><g id="g9"><text x="0" textLength="272" class="color7">will load them as external modules</text></g><g id="g10"><text x="0" textLength="168" class="foreground">I:GNES:[hel:loa:511]:</text><text x="168" textLength="512" class="color7">successfully registered &lt;module 'transformer' from '/workspace/t</text></g><g id="g11"><text x="0" textLength="408" class="color7">ransformer.py'&gt; class, you can now use it via yaml.</text></g><g id="g12"><text x="0" textLength="288" class="foreground">I:PyTorchTransformers:[__i:_ge:322]:</text><text x="288" textLength="392" class="color7">initialize PyTorchTransformers from a yaml config</text></g><g id="g13"><text x="0" textLength="248" class="foreground">I:EncoderService:[bas:_ru:312]:</text><text x="248" textLength="152" class="color7">ready and listening</text></g><g id="g14"><text x="0" textLength="16" class="foreground">^C</text><text x="16" textLength="8" class="background"> </text></g><g id="g15"><text x="0" textLength="264" class="foreground">^CI:EncoderService:[bas:dum:253]:</text><text x="264" textLength="320" class="color7">pass dumping as "read_only" set to true.</text></g></defs><g id="screen_view"><g><rect x="48" y="0" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="0"/></g><g><rect x="416" y="374" width="8" height="17" class="foreground"/><use xlink:href="#g2" y="374"/></g><g><use xlink:href="#g3" y="748"/><rect x="0" y="765" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="765"/></g><g><use xlink:href="#g3" y="1122"/><use xlink:href="#g5" y="1139"/><rect x="0" y="1156" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1156"/></g><g><use xlink:href="#g3" y="1496"/><use xlink:href="#g5" y="1513"/><use xlink:href="#g6" y="1530"/><use xlink:href="#g7" y="1547"/><rect x="0" y="1564" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1564"/></g><g><use xlink:href="#g3" y="1870"/><use xlink:href="#g5" y="1887"/><use xlink:href="#g6" y="1904"/><use xlink:href="#g7" y="1921"/><use xlink:href="#g8" y="1938"/><use xlink:href="#g9" y="1955"/><rect x="0" y="1972" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="1972"/></g><g><use xlink:href="#g3" y="2244"/><use xlink:href="#g5" y="2261"/><use xlink:href="#g6" y="2278"/><use xlink:href="#g7" y="2295"/><use xlink:href="#g8" y="2312"/><use xlink:href="#g9" y="2329"/><use xlink:href="#g10" y="2346"/><use xlink:href="#g11" y="2363"/><rect x="0" y="2380" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="2380"/></g><g><use xlink:href="#g3" y="2618"/><use xlink:href="#g5" y="2635"/><use xlink:href="#g6" y="2652"/><use xlink:href="#g7" y="2669"/><use xlink:href="#g8" y="2686"/><use xlink:href="#g9" y="2703"/><use xlink:href="#g10" y="2720"/><use xlink:href="#g11" y="2737"/><use xlink:href="#g12" y="2754"/><rect x="0" y="2771" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="2771"/></g><g><use xlink:href="#g3" y="2992"/><use xlink:href="#g5" y="3009"/><use xlink:href="#g6" y="3026"/><use xlink:href="#g7" y="3043"/><use xlink:href="#g8" y="3060"/><use xlink:href="#g9" y="3077"/><use xlink:href="#g10" y="3094"/><use xlink:href="#g11" y="3111"/><use xlink:href="#g12" y="3128"/><rect x="248" y="3145" width="152" height="17" class="color2"/><use xlink:href="#g13" y="3145"/><rect x="0" y="3162" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="3162"/></g><g><use xlink:href="#g3" y="3366"/><use xlink:href="#g5" y="3383"/><use xlink:href="#g6" y="3400"/><use xlink:href="#g7" y="3417"/><use xlink:href="#g8" y="3434"/><use xlink:href="#g9" y="3451"/><use xlink:href="#g10" y="3468"/><use xlink:href="#g11" y="3485"/><use xlink:href="#g12" y="3502"/><rect x="248" y="3519" width="152" height="17" class="color2"/><use xlink:href="#g13" y="3519"/><rect x="16" y="3536" width="8" height="17" class="foreground"/><use xlink:href="#g14" y="3536"/></g><g><use xlink:href="#g3" y="3740"/><use xlink:href="#g5" y="3757"/><use xlink:href="#g6" y="3774"/><use xlink:href="#g7" y="3791"/><use xlink:href="#g8" y="3808"/><use xlink:href="#g9" y="3825"/><use xlink:href="#g10" y="3842"/><use xlink:href="#g11" y="3859"/><use xlink:href="#g12" y="3876"/><rect x="248" y="3893" width="152" height="17" class="color2"/><use xlink:href="#g13" y="3893"/><use xlink:href="#g15" y="3910"/><rect x="0" y="3927" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="3927"/></g><g><use xlink:href="#g16" y="4114"/><use xlink:href="#g17" y="4131"/><use xlink:href="#g18" y="4148"/><use xlink:href="#g19" y="4165"/><use xlink:href="#g20" y="4182"/><use xlink:href="#g21" y="4199"/><use xlink:href="#g22" y="4216"/><use xlink:href="#g23" y="4233"/><use xlink:href="#g24" y="4250"/><use xlink:href="#g25" y="4267"/><use xlink:href="#g26" y="4284"/><use xlink:href="#g27" y="4301"/><use xlink:href="#g28" y="4318"/><use xlink:href="#g29" y="4335"/><use xlink:href="#g30" y="4352"/><use xlink:href="#g31" y="4369"/><use xlink:href="#g32" y="4386"/><use xlink:href="#g33" y="4420"/><rect x="72" y="4437" width="8" height="17" class="foreground"/><use xlink:href="#g34" y="4437"/></g><g><use xlink:href="#g33" y="4488"/><use xlink:href="#g35" y="4505"/><use xlink:href="#g36" y="4522"/><use xlink:href="#g37" y="4539"/><use xlink:href="#g38" y="4556"/><use xlink:href="#g39" y="4573"/><use xlink:href="#g40" y="4590"/><use xlink:href="#g41" y="4607"/><use xlink:href="#g42" y="4624"/><use xlink:href="#g43" y="4641"/><use xlink:href="#g44" y="4658"/><use xlink:href="#g45" y="4675"/><use xlink:href="#g46" y="4692"/><use xlink:href="#g47" y="4709"/><use xlink:href="#g48" y="4726"/><use xlink:href="#g49" y="4743"/><use xlink:href="#g50" y="4760"/><use xlink:href="#g51" y="4777"/><use xlink:href="#g52" y="4794"/><rect x="0" y="4811" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="4811"/></g><g><use xlink:href="#g33" y="4862"/><use xlink:href="#g35" y="4879"/><use xlink:href="#g36" y="4896"/><use xlink:href="#g37" y="4913"/><use xlink:href="#g38" y="4930"/><use xlink:href="#g39" y="4947"/><use xlink:href="#g40" y="4964"/><use xlink:href="#g41" y="4981"/><use xlink:href="#g42" y="4998"/><use xlink:href="#g43" y="5015"/><use xlink:href="#g44" y="5032"/><use xlink:href="#g45" y="5049"/><use xlink:href="#g46" y="5066"/><use xlink:href="#g47" y="5083"/><use xlink:href="#g48" y="5100"/><use xlink:href="#g49" y="5117"/><use xlink:href="#g50" y="5134"/><use xlink:href="#g51" y="5151"/><use xlink:href="#g52" y="5168"/><rect x="0" y="5185" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="5185"/></g><g><use xlink:href="#g33" y="5236"/><use xlink:href="#g35" y="5253"/><use xlink:href="#g36" y="5270"/><use xlink:href="#g37" y="5287"/><use xlink:href="#g38" y="5304"/><use xlink:href="#g39" y="5321"/><use xlink:href="#g40" y="5338"/><use xlink:href="#g41" y="5355"/><use xlink:href="#g42" y="5372"/><use xlink:href="#g43" y="5389"/><use xlink:href="#g44" y="5406"/><use xlink:href="#g45" y="5423"/><use xlink:href="#g46" y="5440"/><use xlink:href="#g47" y="5457"/><use xlink:href="#g48" y="5474"/><use xlink:href="#g49" y="5491"/><use xlink:href="#g50" y="5508"/><use xlink:href="#g51" y="5525"/><use xlink:href="#g52" y="5542"/><rect x="48" y="5559" width="8" height="17" class="foreground"/><use xlink:href="#g1" y="5559"/></g><g><use xlink:href="#g35" y="5610"/><use xlink:href="#g36" y="5627"/><use xlink:href="#g37" y="5644"/><use xlink:href="#g38" y="5661"/><use xlink:href="#g39" y="5678"/><use xlink:href="#g40" y="5695"/><use xlink:href="#g41" y="5712"/><use xlink:href="#g42" y="5729"/><use xlink:href="#g43" y="5746"/><use xlink:href="#g44" y="5763"/><use xlink:href="#g45" y="5780"/><use xlink:href="#g46" y="5797"/><use xlink:href="#g47" y="5814"/><use xlink:href="#g48" y="5831"/><use xlink:href="#g49" y="5848"/><use xlink:href="#g50" y="5865"/><use xlink:href="#g51" y="5882"/><use xlink:href="#g52" y="5899"/><use xlink:href="#g53" y="5916"/><rect x="0" y="5933" width="8" height="17" class="foreground"/><use xlink:href="#g4" y="5933"/></g></g></svg>
+</svg>
