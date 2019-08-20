@@ -53,9 +53,6 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
 
 A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py` and `model.yml`. They should be put in the same folder and placed under one of the aforementioned folders, say `indexer/my-awesome-indexer/`. The corresponding Docker Hub image is `gnes/hub-indexer:my-awesome-indexer`, which is built and pushed to Docker Hub automatically on every `master` update.
 
-## Contributing
-
-
 
 ## Tutorial
 
@@ -230,3 +227,11 @@ docker run --rm gnes/hub-tutorial-transformers
 👏 Well done! Now you can run it as a standalone GNES encoder microservice.
 
 
+## Contributing
+
+Thanks for your interest in contributing! GNES Hub always welcome the contribution from the open-source community, individual committers and other partners. Without you, GNES Hub can't be successful.
+
+Make sure to read the contributor guidelines before your first commit. 
+
+- [Contributor guidelines (under construction)](./CONTRIBUTING.md)
+- [Open issues](/issues)
