@@ -15,7 +15,7 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
 
 <p align="center">
 <a href="https://gnes.ai">
-    <img src=".github/gnes-hub-github.png" width="80%" alt="GNES Hub, logo made by Han Xiao">
+    <img src=".github/gnes-hub-github.svg" width="80%" alt="GNES Hub, logo made by Han Xiao">
 </a>
 </p>
 
