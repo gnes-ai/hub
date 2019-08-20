@@ -14,17 +14,16 @@ class PyTorchTransformers(BaseTextEncoder):
         self.model_name = model_name
 
     def post_init(self):
-        MODELS = {k[-1]: k for k in
-                  [(BertModel, BertTokenizer, 'bert-base-uncased'),
-                   (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt'),
-                   (GPT2Model, GPT2Tokenizer, 'gpt2'),
-                   (TransfoXLModel, TransfoXLTokenizer, 'transfo-xl-wt103'),
-                   (XLNetModel, XLNetTokenizer, 'xlnet-base-cased'),
-                   (XLMModel, XLMTokenizer, 'xlm-mlm-enfr-1024'),
-                   (RobertaModel, RobertaTokenizer, 'roberta-base')]}
-
         # select the model, tokenizer & weight accordingly
-        model_class, tokenizer_class, pretrained_weights = MODELS[self.model_name]
+        model_class, tokenizer_class, pretrained_weights = \
+            {k[-1]: k for k in
+             [(BertModel, BertTokenizer, 'bert-base-uncased'),
+              (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt'),
+              (GPT2Model, GPT2Tokenizer, 'gpt2'),
+              (TransfoXLModel, TransfoXLTokenizer, 'transfo-xl-wt103'),
+              (XLNetModel, XLNetTokenizer, 'xlnet-base-cased'),
+              (XLMModel, XLMTokenizer, 'xlm-mlm-enfr-1024'),
+              (RobertaModel, RobertaTokenizer, 'roberta-base')]}[self.model_name]
 
         def load_model_tokenizer(x):
             return model_class.from_pretrained(x), tokenizer_class.from_pretrained(x)

@@ -90,11 +90,12 @@ class PyTorchTransformers(BaseTextEncoder):
     def post_init(self):
         from pytorch_transformers import *
         
-        MODELS = {k[-1]: k for k in [(BertModel, BertTokenizer, 'bert-base-uncased'), # ...
-        (OpenAIGPTModel, OpenAIGPTTokenizer, 'openai-gpt')]}
-    
         # select the model, tokenizer & weight accordingly
-        model_class, tokenizer_class, pretrained_weights = MODELS[self.model_name]
+        model_class, tokenizer_class, pretrained_weights = \
+            {k[-1]: k for k in
+             [(BertModel, BertTokenizer, 'bert-base-uncased'),
+              # ...
+              (RobertaModel, RobertaTokenizer, 'roberta-base')]}[self.model_name]
     
         def load_model_tokenizer(x):
             return model_class.from_pretrained(x), tokenizer_class.from_pretrained(x)
@@ -158,7 +159,7 @@ parameters:
 gnes_config:
   name: my_transformer  # a customized name so one can (de)serialize the model
   is_trained: true  # indicate the model has been trained
-  work_dir: $WORKSPACE
+  work_dir: /workspace
   batch_size: 128
 ```
 
