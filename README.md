@@ -9,7 +9,7 @@
 
 <p align="center">
 <a href='https://github.com/gnes-ai/hub/blob/master/LICENSE'>
-    <img alt="License" src="https://img.shields.io/github/license/gnes-ai/hub">
+    <img alt="PyPI - License" src="https://img.shields.io/pypi/l/gnes.svg">
 </a>
 </p>
 
