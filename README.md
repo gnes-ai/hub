@@ -1,4 +1,11 @@
-# 🚢 GNES Hub
+<p align="center">
+<a href="https://gnes.ai">
+    <img src=".github/gneshub-logo-square-blue.svg" width="33%" alt="GNES Hub, logo made by Han Xiao">
+</a>
+</p>
+<p align="center">
+<i>Model as docker, docker as plugin</i>
+</p>
 
 ![GitHub](https://img.shields.io/github/license/gnes-ai/hub)
 
@@ -15,8 +22,8 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
 
 - **X-as-service**: it makes models cloud-native, and ready to be served as GNES microservices.
 - **Full autonomy**: model developers have the complete autonomy on what to install and to include for running the algorithms. 
-- **Simple interface**: override few methods and you are ready to go. Concentrate on the core logic of the algorithm, don't even worry about microservice, network communication, model persistence.
-- **Good for all**: the community can enjoy the state-of-the-art models without worrying about dependencies, model files, versioning, etc. Just `docker pull`!
+- **Simple interface**: override few methods and you are ready to go. Concentrate on the core logic of the algorithm.
+- **Good for all**: the community can enjoy the state-of-the-art models without worrying about dependencies, data files, drivers, versioning, etc. Just `docker pull`!
 
 [📒 Interested readers are recommended to read the long version.](https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/#model-as-docker-and-docker-as-a-plugin)
 
