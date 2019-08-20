@@ -28,6 +28,7 @@ class TestEncoder(unittest.TestCase):
             '--socket_in', str(SocketType.PULL_CONNECT),
             '--socket_out', str(SocketType.PUSH_CONNECT),
             '--yaml_path', 'transformer.yml',
+            '--py_path', 'transformer.py'
         ])
 
         with ServiceManager(EncoderService, e_args), \

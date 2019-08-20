@@ -164,22 +164,12 @@ gnes_config:
 
 #### Breakdown of `Dockerfile`
 
-Finally, I can pack everything together in a docker image. I take `pytorch/pytorch` as the base image, install all dependencies and add `transformer.py` and `transformer.yml` to the image.
-
-Note, to tell GNES loading `PyTorchTransformers`, I make an environment variable `GNES_CONTRIB_MODULE` that points to the path of `transformer.py`.
-
-Finally, the entrypoint is set with `--yaml_path=transformer.yml` to ensure the 
+Finally, we can pack everything together in a docker image. I take `pytorch/pytorch` as the base image, install all dependencies and add `transformer.py` and `transformer.yml` to the image. Pay attention to the entrypoint I set with `--yaml_path` and `--py_path`.
 
 ```Dockerfile
 FROM pytorch/pytorch
 
 RUN pip install -U pytorch-transformers gnes --no-cache-dir --compile
-
-ENV WORKSPACE="/workspace"
-WORKDIR $WORKSPACE
-
-# register the python module
-ENV GNES_CONTRIB_MODULE="$WORKSPACE/transformer.py"
 
 ADD *.py *.yml ./
 
@@ -188,7 +178,7 @@ ADD *.py *.yml ./
 # as your CI runner for "docker build" may not have enough memory
 RUN python -m unittest test_transformer.py -v
 
-ENTRYPOINT ["gnes", "encode", "--yaml_path", "transformer.yml", "--read_only"]
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "transformer.yml", "--py_path", "transformer.py", "--read_only"]
 ```
 
 I also add a simple unit test [`test_transformer.py`](tutorial/test_transformer.py), which simulates a round-trip through frontend, preprocessor and encoder services, making sure the communication is correct. In practice, you probably don't want to include this unit test especially if your `docker build` is conducted in a CICD pipeline, as the CI runner may not have enough memory to load the model.
