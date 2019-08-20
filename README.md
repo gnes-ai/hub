@@ -34,10 +34,10 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
   
 ## 🌟 Highlights
 
-- **X-as-service**: it makes models cloud-native, and ready to be served as GNES microservices.
+- **X-as-service**: it immediately grants *cloud-nativeness* and *elasticity* to any model, making them GNES-ready.
 - **Full autonomy**: model developers have the complete autonomy on what to install and to include for running the algorithms. 
-- **Simple interface**: override few methods and you are ready to go. Concentrate on the core logic of the algorithm.
-- **Good for all**: the community can enjoy the state-of-the-art models without worrying about dependencies, data files, drivers, versioning, etc. Just `docker pull`!
+- **Simple interface**: simply override few methods and concentrate on the core logic of the algorithm.
+- **Good for all**: enjoy the state-of-the-art models without worrying about dependencies, data files, drivers, versionings, virtual envs etc.
 
 [📒 Interested readers are recommended to read the long version.](https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/#model-as-docker-and-docker-as-a-plugin)
 
@@ -225,6 +225,8 @@ docker run --rm gnes/hub-tutorial-transformers
 ```
 
 👏 Well done! Now you can run it as a standalone GNES encoder microservice.
+
+### Using `gnes/hub-tutorial-transformers` to build a simple semantic search system
 
 
 ## Contributing
