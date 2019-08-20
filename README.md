@@ -4,7 +4,7 @@
 </a>
 </p>
 <p align="center">
-<i>Model as docker, docker as plugin</i>
+<i><a href="https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/#model-as-docker-and-docker-as-a-plugin">Model as docker, docker as plugin</a></i>
 </p>
 
 ![GitHub](https://img.shields.io/github/license/gnes-ai/hub)
