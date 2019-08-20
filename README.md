@@ -4,10 +4,22 @@
 </a>
 </p>
 <p align="center">
-<i><a href="https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/#model-as-docker-and-docker-as-a-plugin">Model as docker, docker as plugin</a></i>
+<i><a href="https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/#model-as-docker-and-docker-as-a-plugin">"Model as docker, docker as plugin"</a></i>
 </p>
 
-![GitHub](https://img.shields.io/github/license/gnes-ai/hub)
+<p align="center">
+<a href='https://github.com/gnes-ai/hub/blob/master/LICENSE'>
+    <img alt="License" src="https://img.shields.io/github/license/gnes-ai/hub">
+</a>
+</p>
+
+<p align="center">
+  <a href="#-highlights">Highlights</a> •
+  <a href="#structure-of-the-repository">Overview</a> •
+  <a href="#tutorial">Tutorial</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="https://hanxiao.github.io/2019/07/29/Generic-Neural-Elastic-Search-From-bert-as-service-and-Go-Way-Beyond/">Blog</a>  
+</p>
 
 GNES Hub ship AI/ML models as Docker containers and use Docker containers as plugins. It offers a clean and sustainable way to port external algorithms (with the dependencies) into the [GNES framework](https://github.com/gnes-ai/gnes).
 
@@ -19,11 +31,6 @@ GNES Hub is hosted on the [Docker Hub](https://hub.docker.com/gnes/).
 </a>
 </p>
 
-
-* [Highlights](#-highlights)
-* [Structure](#structure-of-the-repository)
-* [Tutorial](#tutorial)
-* [Contributing](#contributing)  
   
 ## 🌟 Highlights
 
