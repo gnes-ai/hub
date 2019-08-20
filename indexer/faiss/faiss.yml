@@ -1,0 +1,8 @@
+!FaissIndexer
+parameters:
+  num_dim: 300
+  index_key: HNSW32
+  data_path: /workspace/idx.faiss
+gnes_config:
+  name: my_faiss_indexer  # a customized name
+  work_dir: /workspace
