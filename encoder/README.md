@@ -2,13 +2,14 @@
 
 To create a new indexer, you can create a new class inherited from 
 
-- `gnes.encoder.base.BaseEncoder`
-- `gnes.encoder.base.BaseImageEncoder`
-- `gnes.encoder.base.BaseVideoEncoder`
-- `gnes.encoder.base.BaseTextEncoder`
-- `gnes.encoder.base.BaseNumericEncoder`
-- `gnes.encoder.base.BaseAudioEncoder`
-- `gnes.encoder.base.BaseBinaryEncoder`
+- `gnes.component.BaseEncoder`
+- `gnes.component.BaseTextEncoder`
+- `gnes.component.BaseAudioEncoder`
+- `gnes.component.BaseImageEncoder`
+- `gnes.component.BaseVideoEncoder`
+- `gnes.component.BaseBinaryEncoder`
+- `gnes.component.BaseNumericEncoder`
+- `gnes.component.PipelineEncoder`
 
 and then override the following methods:
 
