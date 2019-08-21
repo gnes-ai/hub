@@ -9,4 +9,4 @@ RUN apt-get update && apt-get install -y build-essential && \
 
 ADD *.py *.yml ./
 
-ENTRYPOINT ["/opt/conda/bin/gnes", "index", "--yaml_path", "faiss.yml", "--py_path", "faiss.py", "--read_only"]
+ENTRYPOINT ["/opt/conda/bin/gnes", "index", "--yaml_path", "faiss.yml", "--py_path", "_faiss.py"]
