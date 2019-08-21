@@ -1,6 +1,17 @@
 # 🚢 GNES Hub - Preprocessor
 
-To create a new preprocessor, you can create a new class inherited from `gnes.preprocessor.base.BasePreprocessor` and override the following methods:
+To create a new preprocessor, you can create a new class inherited from 
+ 
+- `gnes.component.BasePreprocessor`
+- `gnes.component.BaseImagePreprocessor`
+- `gnes.component.BaseTextPreprocessor`
+- `gnes.component.BaseAudioPreprocessor`
+- `gnes.component.BaseVideoPreprocessor`
+- `gnes.component.PipelinePreprocessor`
+- `gnes.component.UnaryPreprocessor`
+
+
+and override the following methods:
 
 - `apply`
 

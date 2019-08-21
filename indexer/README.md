@@ -2,10 +2,11 @@
 
 To create a new indexer, you can create a new class inherited from 
 
-- `gnes.indexer.base.BaseIndexer`
-- `gnes.indexer.base.BaseVectorIndexer`
-- `gnes.indexer.base.BaseTextIndexer`
-- `gnes.indexer.base.BaseKeyIndexer`
+- `gnes.component.BaseVectorIndexer`
+- `gnes.component.BaseIndexer`
+- `gnes.component.BaseTextIndexer`
+- `gnes.component.BaseKeyIndexer`
+- `gnes.component.JointIndexer`
  
 and then override the following methods:
 

@@ -2,9 +2,9 @@
 
 To create a new router, you can create a new class inherited from 
 
-- `gnes.router.base.BaseRouter`
-- `gnes.router.base.BaseMapRouter`
-- `gnes.router.base.BaseReduceRouter`
+- `gnes.component.BaseRouter`
+- `gnes.component.BaseMapRouter`
+- `gnes.component.BaseReduceRouter`
 
 and then override the following methods:
 
