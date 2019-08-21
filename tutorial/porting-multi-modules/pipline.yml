@@ -1,0 +1,10 @@
+!PipelinePreprocessor
+components:
+  - !MyPreprocessor1
+    parameters:
+      foo: hello
+  - !MyPreprocessor2
+    parameters:
+      bar: world
+gnes_config:
+  name: external_preprocessor

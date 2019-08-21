@@ -58,12 +58,10 @@ A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py
 
 - [Porting `PyTorch-Transformers` into GNES](#porting-pytorch-transformers-into-gnes)
   * [Breakdown of `transformer.py`](#breakdown-of-transformerpy)
-    + [Implement `__init__` method](#implement-__init__-method)
-    + [Implement `post_init` method](#implement-post_init-method)
-    + [Implement `encode` method](#implement-encode-method)
   * [Breakdown of `transformer.yml`](#breakdown-of-transformeryml)
   * [Breakdown of `Dockerfile`](#breakdown-of-dockerfile)
   * [🏁 Building `PyTorch-Transformers` image](#-building-pytorch-transformers-image)
+- [Porting multiple modules in a row](#porting-multiple-modules-in-a-row)
 
 ### Porting `PyTorch-Transformers` into GNES
 
@@ -75,9 +73,9 @@ The files needed are listed below:
 
 | Name | Description|
 |---|---|
-|[`tutorial/transformer.py`](tutorial/transformer.py) | A Python module that implements the encoder interface using `PyTorch-Transformers`|
-|[`tutorial/transformer.yml`](tutorial/transformer.yml) | A YAML config that describes the parameters and arguments of the encoder |
-|[`tutorial/Dockerfile`](tutorial/Dockerfile) | Dockerfile that wraps dependencies, model data, etc. into an image |
+|[`transformer.py`](tutorial/porting-transformer/transformer.py) | A Python module that implements the encoder interface using `PyTorch-Transformers`|
+|[`transformer.yml`](tutorial/porting-transformer/transformer.yml) | A YAML config that describes the parameters and arguments of the encoder |
+|[`Dockerfile`](tutorial/porting-transformer/Dockerfile) | Dockerfile that wraps dependencies, model data, etc. into an image |
 
 #### Breakdown of `transformer.py`
 
@@ -200,14 +198,14 @@ RUN python -m unittest test_transformer.py -v
 ENTRYPOINT ["gnes", "encode", "--yaml_path", "transformer.yml", "--py_path", "transformer.py", "--read_only"]
 ```
 
-I also add a simple unit test [`test_transformer.py`](tutorial/test_transformer.py), which simulates a round-trip through frontend, preprocessor and encoder services, making sure the communication is correct. In practice, you probably don't want to include this unit test especially if your `docker build` is conducted in a CICD pipeline, as the CI runner may not have enough memory to load the model.
+I also add a simple unit test [`test_transformer.py`](tutorial/porting-transformer/test_transformer.py), which simulates a round-trip through frontend, preprocessor and encoder services, making sure the communication is correct. In practice, you probably don't want to include this unit test especially if your `docker build` is conducted in a CICD pipeline, as the CI runner may not have enough memory to load the model.
 
 #### 🏁 Building `PyTorch-Transformers` image
 
 Finally, we build a self-contained Docker image that can be used as a GNES encoder microservice.
 
 ```bash
-cd tutorial
+cd tutorial/porting-transformer
 docker build -t gnes/hub-tutorial-transformers .
 ```
 
@@ -219,15 +217,81 @@ This should yield the following:
 </a>
 </p>
 
-You can check whether the image can be run successfully via:
+To check whether the image is runnable:
 ```bash
 docker run --rm gnes/hub-tutorial-transformers
 ```
 
 👏 Well done! Now you can run it as a standalone GNES encoder microservice.
 
-### Using `gnes/hub-tutorial-transformers` to build a simple semantic search system
+### Porting multiple modules in a row
 
+In this section, I will show you how to port multiple modules into GNES. This is particularly useful when you build your own `PipelinePreprocessor`
+ or `PipelineEncoder` using multiple external components. For example,
+ 
+```yaml
+!PipelinePreprocessor
+components:
+  - !MyPreprocessor1
+    parameters:
+      foo: hello
+  - !MyPreprocessor2
+    parameters:
+      bar: world
+gnes_config:
+  name: external_preprocessor
+```
+
+The files needed are listed below:
+
+| Name | Description|
+|---|---|
+|[`mypreprocessor1.py`](tutorial/porting-multi-modules/mypreprocessor1.py) | A Python module that implements a dummy preprocessor |
+|[`mypreprocessor2.py`](tutorial/porting-multi-modules/mypreprocessor2.py) | A Python module that implements another dummy preprocessor |
+|[`pipline.yml.yml`](tutorial/porting-multi-modules/pipline.yml) | A YAML config that describes a pipeline consisted of two preprocessors |
+|[`Dockerfile`](tutorial/porting-multi-modules/Dockerfile) | Dockerfile that wraps dependencies into an image |
+
+The preprocessor I wrote here simply appends some text to the document. Note how the preprocessor inherits from `BaseTextPreprocessor`
+
+```python
+from gnes.preprocessor.text.base import BaseTextPreprocessor
+
+class MyPreprocessor1(BaseTextPreprocessor):
+
+    def __init__(self, foo, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.foo = foo
+
+    def apply(self, doc: 'gnes_pb2.Document') -> None:
+        super().apply(doc)
+        doc.raw_text = doc.raw_bytes.decode().strip()
+        doc.raw_text += self.foo
+        self.logger.info(doc.raw_text)
+```
+
+The `Dockefile` is simply using GNES as base image and then adding external modules via `--py_path`. Notice that `--py_path` is followed with two files.
+
+```Dockerfile
+FROM gnes/gnes:latest-alpine
+
+ADD *.py *.yml ./
+
+ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "pipline.yml", "--py_path", "mypreprocessor1.py", "mypreprocessor2.py", "--read_only"]  
+```
+
+Finally, we build a self-contained Docker image that can be used as a GNES preprocessor microservice.
+
+```bash
+cd tutorial/porting-multi-modules
+docker build -t gnes/hub-tutorial-preprocessor .
+```
+
+To check whether the image is runnable:
+```bash
+docker run --rm gnes/hub-tutorial-preprocessor
+```
+
+👏 Well done! Now you can run it as a standalone GNES preprocessor microservice.
 
 ## Contributing
 
