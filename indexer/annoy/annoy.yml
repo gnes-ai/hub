@@ -1,0 +1,9 @@
+!AnnoyIndexer
+parameters:
+  num_dim: 300
+  metric: angular
+  n_trees: 10
+  data_path: /workspace/idx.annoy
+gnes_config:
+  name: my_annoy_indexer  # a customized name
+  work_dir: /workspace
