@@ -256,7 +256,6 @@ The preprocessor I wrote here simply appends some text to the document. Note how
 ```python
 from gnes.preprocessor.text.base import BaseTextPreprocessor
 
-
 class MyPreprocessor1(BaseTextPreprocessor):
 
     def __init__(self, foo, *args, **kwargs):
