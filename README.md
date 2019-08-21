@@ -58,12 +58,10 @@ A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py
 
 - [Porting `PyTorch-Transformers` into GNES](#porting-pytorch-transformers-into-gnes)
   * [Breakdown of `transformer.py`](#breakdown-of-transformerpy)
-    + [Implement `__init__` method](#implement-__init__-method)
-    + [Implement `post_init` method](#implement-post_init-method)
-    + [Implement `encode` method](#implement-encode-method)
   * [Breakdown of `transformer.yml`](#breakdown-of-transformeryml)
   * [Breakdown of `Dockerfile`](#breakdown-of-dockerfile)
   * [🏁 Building `PyTorch-Transformers` image](#-building-pytorch-transformers-image)
+- [Porting multiple modules in a row](#porting-multiple-modules-in-a-row)
 
 ### Porting `PyTorch-Transformers` into GNES
 
