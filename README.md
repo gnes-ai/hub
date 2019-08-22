@@ -62,6 +62,7 @@ A GNES Hub model is represented by at least three files: `Dockerfile`, `model.py
   * [Breakdown of `Dockerfile`](#breakdown-of-dockerfile)
   * [🏁 Building `PyTorch-Transformers` image](#-building-pytorch-transformers-image)
 - [Porting multiple modules in a row](#porting-multiple-modules-in-a-row)
+- [Cherry-picking dependencies to enable GNES built-in models]()
 
 ### Porting `PyTorch-Transformers` into GNES
 
@@ -248,7 +249,7 @@ The files needed are listed below:
 |---|---|
 |[`mypreprocessor1.py`](tutorial/porting-multi-modules/mypreprocessor1.py) | A Python module that implements a dummy preprocessor |
 |[`mypreprocessor2.py`](tutorial/porting-multi-modules/mypreprocessor2.py) | A Python module that implements another dummy preprocessor |
-|[`pipline.yml.yml`](tutorial/porting-multi-modules/pipline.yml) | A YAML config that describes a pipeline consisted of two preprocessors |
+|[`pipline.yml`](tutorial/porting-multi-modules/pipline.yml) | A YAML config that describes a pipeline consisted of two preprocessors |
 |[`Dockerfile`](tutorial/porting-multi-modules/Dockerfile) | Dockerfile that wraps dependencies into an image |
 
 The preprocessor I wrote here simply appends some text to the document. Note how the preprocessor inherits from `BaseTextPreprocessor`
@@ -292,6 +293,47 @@ docker run --rm gnes/hub-tutorial-preprocessor
 ```
 
 👏 Well done! Now you can run it as a standalone GNES preprocessor microservice.
+
+### Cherry-picking dependencies to enable GNES built-in models
+
+In general, the image `gnes/gnes:latest` only contains a barebone version of GNES, same when you install GNES via `pip install gnes`. It provides the minimum dependency for running GNES as a framework. All DL framework dependencies, heavy database interfaces are *not* installed. Although one can always use `gnes/gnes:latest-full` or `pip install gnes[full]` to install all possible dependencies, it is not the most efficient and sustainable way (especially when you want to roll-out the system faster).
+
+Note that GNES has quite [some built-in interfaces](https://github.com/gnes-ai/gnes/blob/master/tutorials/component-yaml-spec.md#cls-specification) of the state-of-the-art ML/DL models, but they are disabled by default. In this section, I will show you how to enable a built-in feature by cherry-picking dependencies and building your own GNES image in an on-demand manner. 
+
+The files needed are listed below:
+
+| Name | Description|
+|---|---|
+|[`flair.yml`](tutorial/cherrypicking-dependencies/pipline.yml) | A YAML config that describes the Flair encoder |
+|[`Dockerfile`](tutorial/cherrypicking-dependencies/Dockerfile) | Dockerfile that wraps dependencies into an image |
+
+The following Dockerfile shows an example. We start from the Pytorch base image, install GNES with Flair (a NLP framework made by my former colleague at Zalando Research), and finally serve the encoder as the entrypoint.  
+
+```Dockerfile
+FROM pytorch/pytorch
+
+RUN pip install gnes[flair]
+
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "flair.yml", "--read_only"]
+```
+
+> In general, one can also start with a barebone GNES base image, say `gnes/gnes:latest-ubuntu18`, then reinstall GNES with `pip install gnes[flair]`. But in this case Flair requires Pytorch as the dependency, which is pretty time-consuming to install.
+
+
+Finally, we build a GNES image with Flair support and use it a GNES encoder microservice.
+
+```bash
+cd tutorial/cherrypicking-dependencies
+docker build -t gnes/hub-tutorial-cherrypick-flair .
+```
+
+To check whether the image is runnable:
+```bash
+docker run --rm gnes/hub-tutorial-cherrypick-flair
+```
+
+👏 Well done! Now you can run it as a standalone GNES encoder microservice.
+
 
 ## Contributing
 

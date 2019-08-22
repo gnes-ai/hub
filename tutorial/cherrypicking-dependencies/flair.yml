@@ -1,0 +1,7 @@
+!FlairEncoder
+parameters:
+  model_name: 'multi-forward-fast'
+  pooling_stragy: REDUCE_MEAN
+gnes_config:
+  is_trained: true
+  name: my_flair
