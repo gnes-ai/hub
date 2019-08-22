@@ -296,9 +296,9 @@ docker run --rm gnes/hub-tutorial-preprocessor
 
 ### Cherry-picking dependencies to enable GNES built-in models
 
-In general, the image `gnes/gnes:latest` only contains a barebone version of GNES, same when you install GNES via `pip install gnes`. It provides the minimum dependency for running GNES as a framework. All DL framework dependencies, heavy database interfaces are *not* installed. Although one can always use `gnes/gnes:latest-full` or `pip install gnes[full]` to install all possible dependencies, it is not the most efficient and sustainable way (especially when you want to roll-out the system faster).
+In general, the image `gnes/gnes:latest` only contains a barebone version of GNES, same when you install GNES via `pip install gnes`. It provides the minimum dependency for running GNES as a framework. All DL framework dependencies, heavy database interfaces are *not* installed. Although one can always use `gnes/gnes:latest-full` or `pip install gnes[full]` with all possible dependencies, it is not the most efficient and sustainable way.
 
-Note that GNES has quite [some built-in interfaces](https://github.com/gnes-ai/gnes/blob/master/tutorials/component-yaml-spec.md#cls-specification) of the state-of-the-art ML/DL models, but they are disabled by default. In this section, I will show you how to enable a built-in feature by cherry-picking dependencies and building your own GNES image in an on-demand manner. 
+Note that GNES has [some built-in interfaces](https://github.com/gnes-ai/gnes/blob/master/tutorials/component-yaml-spec.md#cls-specification) of the state-of-the-art ML/DL models, but they are disabled by default. In this section, I will show you how to enable a built-in feature by cherry-picking dependencies and making your own GNES image in an on-demand manner. 
 
 The files needed are listed below:
 
