@@ -39,16 +39,14 @@ class TestShotDetector(unittest.TestCase):
         with ServiceManager(PreprocessorService, args):
             pass
 
-    @unittest.SkipTest
     def test_histogram(self):
         args = set_preprocessor_parser().parse_args(
-            ['--yaml_path', self.histogram_yml_path])
+            ['--yaml_path', self.histogram_yml_path, '--py_path', 'shot_detector.py'])
         c_args = _set_client_parser().parse_args([
             '--port_in',
             str(args.port_out), '--port_out',
-            str(args.port_in), '--host_in', '127.0.0.1', '--host_out',
-            '127.0.0.1'
-        ])
+            str(args.port_in)])
+        print(os.listdir(self.video_path))
         video_bytes = [
             open(os.path.join(self.video_path, _), 'rb').read()
             for _ in os.listdir(self.video_path)
@@ -66,16 +64,13 @@ class TestShotDetector(unittest.TestCase):
                         shape = blob2array(d.chunks[_].blob).shape
                         self.assertEqual(shape[1:], (168, 192, 3))
 
-    @unittest.SkipTest
     def test_edge(self):
         args = set_preprocessor_parser().parse_args(
-            ['--yaml_path', self.edge_yml_path])
+            ['--yaml_path', self.edge_yml_path, '--py_path', 'shot_detector.py'])
         c_args = _set_client_parser().parse_args([
             '--port_in',
             str(args.port_out), '--port_out',
-            str(args.port_in), '--host_in', '127.0.0.1', '--host_out',
-            '127.0.0.1'
-        ])
+            str(args.port_in)])
         video_bytes = [
             open(os.path.join(self.video_path, _), 'rb').read()
             for _ in os.listdir(self.video_path)

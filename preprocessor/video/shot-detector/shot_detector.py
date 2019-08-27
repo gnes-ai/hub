@@ -69,16 +69,13 @@ class ShotDetectPreprocessor(BaseVideoPreprocessor):
         super().apply(doc)
 
         if doc.raw_bytes:
-            self.logger.info('step 1')
             all_frames = video.capture_frames(
                 input_data=doc.raw_bytes,
                 scale=self.scale,
                 fps=self.frame_rate)
-            self.logger.info('step 2')
             num_frames = len(all_frames)
             assert num_frames > 0
             shots = self.detect_shots(all_frames)
-
             for ci, frames in enumerate(shots):
                 c = doc.chunks.add()
                 c.doc_id = doc.doc_id
