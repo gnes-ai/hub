@@ -1,0 +1,8 @@
+!IncepMixtureEncoder
+parameters:
+  model_dir_inception: /inception_v4.ckpt
+  model_dir_mixture: /netvlad/model.ckpt
+gnes_config:
+  batch_size: 64
+  work_dir: save
+  name: inception-mixture
