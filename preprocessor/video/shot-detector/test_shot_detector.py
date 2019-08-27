@@ -19,6 +19,7 @@ import unittest
 from gnes.cli.parser import set_preprocessor_parser, _set_client_parser
 from gnes.client.base import ZmqClient
 from gnes.proto import gnes_pb2, RequestGenerator, blob2array
+from gnes.service.base import ServiceManager
 from gnes.service.preprocessor import PreprocessorService
 
 
@@ -35,7 +36,7 @@ class TestShotDetector(unittest.TestCase):
             '--yaml_path', self.edge_yml_path,
             '--py_path', 'shot_detector.py'
         ])
-        with PreprocessorService(args):
+        with ServiceManager(PreprocessorService, args):
             pass
 
     @unittest.SkipTest
@@ -53,7 +54,7 @@ class TestShotDetector(unittest.TestCase):
             for _ in os.listdir(self.video_path)
         ]
 
-        with PreprocessorService(args), ZmqClient(c_args) as client:
+        with ServiceManager(PreprocessorService, args), ZmqClient(c_args) as client:
             for req in RequestGenerator.index(video_bytes):
                 msg = gnes_pb2.Message()
                 msg.request.index.CopyFrom(req.index)
@@ -80,7 +81,7 @@ class TestShotDetector(unittest.TestCase):
             for _ in os.listdir(self.video_path)
         ]
 
-        with PreprocessorService(args), ZmqClient(c_args) as client:
+        with ServiceManager(PreprocessorService, args), ZmqClient(c_args) as client:
             for req in RequestGenerator.index(video_bytes):
                 msg = gnes_pb2.Message()
                 msg.request.index.CopyFrom(req.index)
