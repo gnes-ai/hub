@@ -1,0 +1,6 @@
+[style]
+
+BASED_ON_STYLE = google
+COLUMN_LIMIT = 79
+spaces_before_comment = 4
+split_before_logical_operator = true
