@@ -1,0 +1,18 @@
+FROM wangkenpu/pytorch1.2.0-py37-cuda10.0-cudnn7-ubuntu18.04
+
+RUN pip install -U gnes --no-cache-dir --compile
+
+ADD *.py *.yml ./
+
+RUN apt-get update && apt-get install -y wget \
+	&& rm -rf /var/lib/apt/lists/*
+
+RUN cd /; mkdir checkpoints \
+	&& cd /checkpoints \
+	&& wget -q https://download.pytorch.org/models/resnet50-19c8e357.pth
+
+RUN pip install https://files.pythonhosted.org/packages/51/83/2d77d040e34bd8f70dcb4770f7eb7d0aa71e07738abf6831be863ade00db/torchvision-0.4.0-cp37-cp37m-manylinux1_x86_64.whl 
+
+RUN python -m unittest test_resnet.py -v
+
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.resnet50.yml", "--py_path", "resnet50.py", "--read_only"]
