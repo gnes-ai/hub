@@ -4,15 +4,15 @@ RUN pip install torch==1.2.0 torchvision==0.4.0 scipy
 
 RUN pip install -U gnes --no-cache-dir --compile
 
-ADD torchVision.py test_resnet.py encoder.resnet50.yml ./
+ADD torch_vision.py test_vgg.py encoder.vgg.yml ./
 
 RUN apt-get update && apt-get install -y wget \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN cd /; mkdir checkpoints \
 	&& cd /checkpoints \
-	&& wget -q https://download.pytorch.org/models/resnet50-19c8e357.pth
+	&& wget -q https://download.pytorch.org/models/vgg16-397923af.pth
 
-RUN python -m unittest test_resnet.py -v
+RUN python -m unittest test_vgg.py -v
 
-ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.resnet50.yml", "--py_path", "torchVision.py", "--read_only"]
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.vgg.yml", "--py_path", "torch_vision.py", "--read_only"]

@@ -4,7 +4,7 @@ RUN pip install torch==1.2.0 torchvision==0.4.0 scipy
 
 RUN pip install -U gnes --no-cache-dir --compile
 
-ADD torchVision.py test_inception.py encoder.inception.yml ./
+ADD torch_vision.py test_inception.py encoder.inception.yml ./
 
 RUN apt-get update && apt-get install -y wget \
 	&& rm -rf /var/lib/apt/lists/*
@@ -15,4 +15,4 @@ RUN cd /; mkdir checkpoints \
 
 RUN python -m unittest test_inception.py -v
 
-ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.inception.yml", "--py_path", "torchVision.py", "--read_only"]
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.inception.yml", "--py_path", "torch_vision.py", "--read_only"]
