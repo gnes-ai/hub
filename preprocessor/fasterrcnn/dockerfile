@@ -1,18 +1,20 @@
-FROM wangkenpu/pytorch1.2.0-py37-cuda10.0-cudnn7-ubuntu18.04
+FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-runtime
 
-ADD *.py *.yml ./
+RUN pip install torch==1.2.0 torchvision==0.4.0
+
+RUN pip install -U gnes --no-cache-dir --compile
+
+ADD *.py *.yml *.zip ./
 
 RUN apt-get update && apt-get install -y libsm6 libxext6 wget \
 	&& rm -rf /var/lib/apt/lists/*
-
-RUN pip install -U gnes --no-cache-dir --compile
 
 RUN cd /; mkdir checkpoints \
 	&& cd /checkpoints \
 	&& wget -q https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth
 
-RUN pip install https://files.pythonhosted.org/packages/51/83/2d77d040e34bd8f70dcb4770f7eb7d0aa71e07738abf6831be863ade00db/torchvision-0.4.0-cp37-cp37m-manylinux1_x86_64.whl 
+RUN pip install opencv_python==4.1.0.25
 
-RUN pip install https://files.pythonhosted.org/packages/de/52/61b9619a7a95a8d809515f68f1441224a07ce1873fd3af5e662851014a55/opencv_python-4.1.0.25-cp37-cp37m-manylinux1_x86_64.whl
+RUN python -m unittest test_fasterrcnn.py -v
 
 ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "preprocessor.fasterrcnn.yml", "--py_path", "fasterrcnn.py", "resize.py", "--read_only"]
