@@ -1,10 +1,10 @@
 FROM pytorch/pytorch:1.1.0-cuda10.0-cudnn7.5-runtime
 
-RUN pip install torch==1.2.0 torchvision==0.4.0
+RUN pip install torch==1.2.0 torchvision==0.4.0 scipy
 
 RUN pip install -U gnes --no-cache-dir --compile
 
-ADD *.py *.yml ./
+ADD torchVision.py test_vgg.py encoder.vgg.yml ./
 
 RUN apt-get update && apt-get install -y wget \
 	&& rm -rf /var/lib/apt/lists/*
@@ -15,4 +15,4 @@ RUN cd /; mkdir checkpoints \
 
 RUN python -m unittest test_vgg.py -v
 
-ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.vgg.yml", "--py_path", "vgg.py", "--read_only"]
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.vgg.yml", "--py_path", "torchVision.py", "--read_only"]

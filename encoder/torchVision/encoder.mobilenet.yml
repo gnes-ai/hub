@@ -1,15 +1,14 @@
 !TorchvisionEncoder
 parameters:
   model_dir: /
-  model_name: vgg16
-  _use_cuda: true
+  model_name: mobilenet_v2
   layers:
     - features
-    - avgpool
-    - x.view(x.size(0), -1)
-    - classifier[0]
+    - mean([2, 3])
+    - classifier[1]
 gnes_config:
-  name: vgg_encoder
+  name: mobilenet_encoder
+  on_gpu: false
   is_trained: true
   work_dir: /save
 

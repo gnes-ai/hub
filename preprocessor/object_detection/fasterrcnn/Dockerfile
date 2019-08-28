@@ -13,7 +13,7 @@ RUN cd /; mkdir checkpoints \
 	&& cd /checkpoints \
 	&& wget -q https://download.pytorch.org/models/fasterrcnn_resnet50_fpn_coco-258fb6c6.pth
 
-RUN pip install opencv_python==4.1.0.25
+RUN pip install opencv_python>=4.1.0 scipy
 
 RUN python -m unittest test_fasterrcnn.py -v
 

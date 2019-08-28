@@ -2,7 +2,6 @@
 parameters:
   model_dir: /
   model_name: resnet50
-  _use_cuda: true
   layers:
     - conv1
     - bn1
@@ -16,6 +15,7 @@ parameters:
     - x.reshape(x.size(0), -1)
 gnes_config:
   name: resnet_encoder
+  on_gpu: false
   is_trained: true
   work_dir: /save
 

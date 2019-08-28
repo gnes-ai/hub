@@ -4,7 +4,6 @@ components:
     parameters:
       model_dir: /
       model_name: fasterrcnn_resnet50_fpn
-      _use_cuda: false
     gnes_config:
       name: fasterRCNN
       is_trained: true
@@ -16,4 +15,5 @@ components:
       name: ResizeChunk
 gnes_config:
   name: pipeline_preprocessor
+  on_gpu: false
   work_dir: /save
