@@ -1,0 +1,19 @@
+!PipelinePreprocessor
+components:
+  - !SegmentPreprocessor
+    parameters:
+      model_dir: /
+      model_name: fasterrcnn_resnet50_fpn
+    gnes_config:
+      name: fasterRCNN
+      is_trained: true
+  - !ResizeChunkPreprocessor
+    parameters:
+      target_height: 224
+      target_width: 224
+    gnes_config:
+      name: ResizeChunk
+gnes_config:
+  name: pipeline_preprocessor
+  on_gpu: false
+  work_dir: /save

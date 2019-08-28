@@ -1,0 +1,14 @@
+!TorchvisionEncoder
+parameters:
+  model_dir: /
+  model_name: mobilenet_v2
+  layers:
+    - features
+    - mean([2, 3])
+    - classifier[1]
+gnes_config:
+  name: mobilenet_encoder
+  on_gpu: false
+  is_trained: true
+  work_dir: /save
+
