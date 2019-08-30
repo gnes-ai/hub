@@ -38,6 +38,11 @@ class TestGifConverter(unittest.TestCase):
 
         self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
 
+    def test_empty_doc(self):
+        doc = gnes_pb2.Document()
+        doc.doc_type = gnes_pb2.Document.VIDEO
+        self.gif_converter.apply(doc)
+
     def test_dump_load(self):
         raw_data = array2blob(self.video_frames)
 
