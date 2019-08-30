@@ -1,0 +1,15 @@
+# my ignore file
+.git/
+.pyre/
+.idea/
+.DS_Store
+docker-compose.yml
+docker-compose-simple.yml
+README.md
+MAINTAINERS
+toy*
+.tmp/
+.git/
+.github/
+Dockerfiles/
+.dockerignore
