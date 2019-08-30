@@ -31,10 +31,14 @@ class GifConverterPreprocessor(BaseVideoPreprocessor):
                 images = blob2array(chunk.blob)
                 chunk.raw = gif.encode_gif(
                     images, pix_fmt=self.pix_fmt, fps=self.fps)
-        elif doc.raw_video:
-            images = blob2array(doc.raw_video)
-            doc.raw_bytes = gif.encode_gif(
-                images, pix_fmt=self.pix_fmt, fps=self.fps)
+        elif doc.WhichOneof('raw_data'):
+            raw_type = type(getattr(doc, doc.WhichOneof('raw_data')))
+            if raw_type == gnes_pb2.NdArray:
+                images = blob2array(doc.raw_video)
+                doc.raw_bytes = gif.encode_gif(
+                    images, pix_fmt=self.pix_fmt, fps=self.fps)
+            else:
+                self.logger.error('bad document: "doc.raw_video" is empty!')
         else:
             self.logger.error(
                 'bad document: "doc.chunks" and "doc.raw_video" is empty!')
