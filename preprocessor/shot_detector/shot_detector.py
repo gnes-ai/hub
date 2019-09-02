@@ -17,7 +17,7 @@ import numpy as np
 from typing import List
 
 from gnes.preprocessor.base import BaseVideoPreprocessor
-from gnes.proto import gnes_pb2, array2blob
+from gnes.proto import gnes_pb2, array2blob, blob2array
 from gnes.preprocessor.io_utils import video
 from gnes.preprocessor.helper import compute_descriptor, compare_descriptor, detect_peak_boundary, compare_ecr
 
@@ -31,6 +31,7 @@ class ShotDetectPreprocessor(BaseVideoPreprocessor):
                  distance_metric: str = 'bhattacharya',
                  detect_method: str = 'threshold',
                  frame_rate: int = 10,
+                 drop_raw_data: bool = False,
                  *args,
                  **kwargs):
         super().__init__(*args, **kwargs)
@@ -39,6 +40,7 @@ class ShotDetectPreprocessor(BaseVideoPreprocessor):
         self.distance_metric = distance_metric
         self.detect_method = detect_method
         self.frame_rate = frame_rate
+        self.drop_raw_data = drop_raw_data
         self._detector_kwargs = kwargs
 
     def detect_shots(self, frames: 'np.ndarray') -> List[List['np.ndarray']]:
@@ -68,21 +70,34 @@ class ShotDetectPreprocessor(BaseVideoPreprocessor):
     def apply(self, doc: 'gnes_pb2.Document') -> None:
         super().apply(doc)
 
-        if doc.raw_bytes:
-            all_frames = video.capture_frames(
-                input_data=doc.raw_bytes,
-                scale=self.scale,
-                fps=self.frame_rate)
-            num_frames = len(all_frames)
-            assert num_frames > 0
-            shots = self.detect_shots(all_frames)
-            for ci, frames in enumerate(shots):
-                c = doc.chunks.add()
-                c.doc_id = doc.doc_id
-                # chunk_data = np.concatenate(frames, axis=0)
-                chunk_data = np.array(frames)
-                c.blob.CopyFrom(array2blob(chunk_data))
-                c.offset_1d = ci
-                c.weight = len(frames) / num_frames
+        video_frames = []
+
+        if doc.WhichOneof('raw_data'):
+            raw_type = type(getattr(doc, doc.WhichOneof('raw_data')))
+            if doc.raw_bytes:
+                video_frames = video.capture_frames(
+                    input_data=doc.raw_bytes,
+                    scale=self.scale,
+                    fps=self.frame_rate)
+            elif raw_type == gnes_pb2.NdArray:
+                video_frames = blob2array(doc.raw_video)
+
+            num_frames = len(video_frames)
+            if num_frames > 0:
+                shots = self.detect_shots(video_frames)
+                for ci, frames in enumerate(shots):
+                    c = doc.chunks.add()
+                    c.doc_id = doc.doc_id
+                    chunk_data = np.array(frames)
+                    c.blob.CopyFrom(array2blob(chunk_data))
+                    c.offset_1d = ci
+                    c.weight = len(frames) / num_frames
+            else:
+                self.logger.error(
+                    'bad document: "raw_bytes" or "raw_video" is empty!')
         else:
-            self.logger.error('bad document: "raw_bytes" is empty!')
+            self.logger.error('bad document: "raw_data" is empty!')
+
+        if self.drop_raw_data:
+            self.logger.info("document raw data has been cleared!")
+            doc.ClearField('raw_data')

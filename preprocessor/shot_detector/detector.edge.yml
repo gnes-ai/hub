@@ -4,5 +4,6 @@ parameters:
   distance_metric: "edge_change_ration"
   scale: "192:168"
   frame_rate: 10
+  drop_raw_data: True
 gnes_config:
   is_trained: true
