@@ -90,7 +90,7 @@ class ShotDetectPreprocessor(BaseVideoPreprocessor):
                     c.doc_id = doc.doc_id
                     chunk_data = np.array(frames)
                     c.blob.CopyFrom(array2blob(chunk_data))
-                    c.offset_1d = ci
+                    c.offset = ci
                     c.weight = len(frames) / num_frames
             else:
                 self.logger.error(
