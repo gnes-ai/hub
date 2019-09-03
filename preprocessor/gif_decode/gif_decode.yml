@@ -1,0 +1,5 @@
+!GifDecodePreprocessor
+parameters:
+  frame_rate: 10
+gnes_config:
+  is_trained: true
