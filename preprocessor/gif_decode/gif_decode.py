@@ -41,8 +41,7 @@ class GifDecodePreprocessor(BaseVideoPreprocessor):
 
             c = doc.chunks.add()
             c.doc_id = doc.doc_id
-            chunk_data = np.array(all_frames)
-            c.blob.CopyFrom(array2blob(chunk_data))
+            c.blob.CopyFrom(array2blob(all_frames))
             c.offset = 0
             c.weight = 1.0
         else:
