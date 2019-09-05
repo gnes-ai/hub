@@ -1,0 +1,9 @@
+!PCALocalEncoder
+parameters:
+  output_dim: 300
+  num_locals: 10
+gnes_config:
+  name: pcalocal_encoder
+  on_gpu: false
+  work_dir: ./
+
