@@ -1,7 +1,0 @@
-!GifConverterPreprocessor
-  parameters:
-    pix_fmt: 'rgb24'
-    fps: 10
-  gnes_config:
-    name: GifConverterPreprocessor
-    is_trained: true

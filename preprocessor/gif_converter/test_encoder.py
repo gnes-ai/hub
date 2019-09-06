@@ -5,35 +5,53 @@ import unittest
 import numpy as np
 from gnes.proto import gnes_pb2, array2blob
 
-from gif_converter import GifConverterPreprocessor
+from video_encoder import VideoEncoderPreprocessor
 
 
-class TestGifConverter(unittest.TestCase):
+class TestVideoEncoder(unittest.TestCase):
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.yaml_path = os.path.join(self.dirname, 'gif_converter.yml')
-        self.dump_path = os.path.join(self.dirname, 'converter.bin')
+        self.mp4_yaml_path = os.path.join(self.dirname, 'mp4_encoder.yml')
+        self.gif_yaml_path = os.path.join(self.dirname, 'gif_encoder.yml')
+        self.dump_path = os.path.join(self.dirname, 'video_encoder.bin')
         self.frames_path = os.path.join(self.dirname, 'frames.npy')
-        self.gif_converter = GifConverterPreprocessor.load_yaml(self.yaml_path)
-
+        self.mp4_encoder = VideoEncoderPreprocessor.load_yaml(self.mp4_yaml_path)
+        self.gif_encoder = VideoEncoderPreprocessor.load_yaml(self.gif_yaml_path)
         self.video_frames = np.load(self.frames_path)
 
 
-    def test_gif_converter(self):
-
+    def test_mp4_encoder(self):
         raw_data = array2blob(self.video_frames)
 
         doc = gnes_pb2.Document()
         doc.doc_type = gnes_pb2.Document.VIDEO
         doc.raw_video.CopyFrom(raw_data)
-        self.gif_converter.apply(doc)
+        self.mp4_encoder.apply(doc)
         doc1 = copy.deepcopy(doc)
 
         doc = gnes_pb2.Document()
         doc.doc_type = gnes_pb2.Document.VIDEO
         chunk = doc.chunks.add()
         chunk.blob.CopyFrom(raw_data)
-        self.gif_converter.apply(doc)
+        self.mp4_encoder.apply(doc)
+        doc2 = copy.deepcopy(doc)
+
+        self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
+
+    def test_gif_encoder(self):
+        raw_data = array2blob(self.video_frames)
+
+        doc = gnes_pb2.Document()
+        doc.doc_type = gnes_pb2.Document.VIDEO
+        doc.raw_video.CopyFrom(raw_data)
+        self.gif_encoder.apply(doc)
+        doc1 = copy.deepcopy(doc)
+
+        doc = gnes_pb2.Document()
+        doc.doc_type = gnes_pb2.Document.VIDEO
+        chunk = doc.chunks.add()
+        chunk.blob.CopyFrom(raw_data)
+        self.gif_encoder.apply(doc)
         doc2 = copy.deepcopy(doc)
 
         self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
@@ -41,7 +59,7 @@ class TestGifConverter(unittest.TestCase):
     def test_empty_doc(self):
         doc = gnes_pb2.Document()
         doc.doc_type = gnes_pb2.Document.VIDEO
-        self.gif_converter.apply(doc)
+        self.mp4_encoder.apply(doc)
 
     def test_dump_load(self):
         raw_data = array2blob(self.video_frames)
@@ -49,17 +67,18 @@ class TestGifConverter(unittest.TestCase):
         doc = gnes_pb2.Document()
         doc.doc_type = gnes_pb2.Document.VIDEO
         doc.raw_video.CopyFrom(raw_data)
-        self.gif_converter.apply(doc)
+        self.mp4_encoder.apply(doc)
         doc1 = copy.deepcopy(doc)
 
-        self.gif_converter.dump(self.dump_path)
-        converter = GifConverterPreprocessor.load(self.dump_path)
+        self.mp4_encoder.dump(self.dump_path)
+
+        encoder = VideoEncoderPreprocessor.load(self.dump_path)
 
         doc = gnes_pb2.Document()
         doc.doc_type = gnes_pb2.Document.VIDEO
         chunk = doc.chunks.add()
         chunk.blob.CopyFrom(raw_data)
-        converter.apply(doc)
+        encoder.apply(doc)
         doc2 = copy.deepcopy(doc)
 
         self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
