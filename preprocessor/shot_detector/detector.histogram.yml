@@ -1,0 +1,11 @@
+!ShotDetectPreprocessor
+parameters:
+  descriptor: "block_hsv_histogram"
+  distance_metric: "bhattacharya"
+  scale: "192:168"
+  frame_rate: 5
+  drop_raw_data: true
+  kwargs:
+    num_blocks: 3
+gnes_config:
+  is_trained: true
