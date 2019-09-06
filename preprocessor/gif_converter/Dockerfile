@@ -1,4 +1,4 @@
-FROM gnes/gnes:latest-buster
+FROM gnes/gnes:latest-develop
 
 LABEL maintainer="team@gnes.ai"
 
@@ -8,6 +8,6 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
 
 ADD *.py *.yml *.npy ./
 
-RUN python -m unittest test_converter.py -v
+RUN python -m unittest test_encoder.py -v
 
-ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "gif_converter.yml", "--py_path", "gif_converter.py"]
+ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "mp4_encoder.yml", "--py_path", "video_encoder.py"]

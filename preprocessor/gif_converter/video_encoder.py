@@ -14,29 +14,41 @@
 #  limitations under the License.
 
 from gnes.component import BaseVideoPreprocessor
-from gnes.preprocessor.io_utils import gif
+from gnes.preprocessor.io_utils import video, gif
 from gnes.proto import gnes_pb2, blob2array
 
 
-class GifConverterPreprocessor(BaseVideoPreprocessor):
-    def __init__(self, fps: int = 10, pix_fmt: str = 'rgb24', *args, **kwargs):
+class VideoEncoderPreprocessor(BaseVideoPreprocessor):
+    def __init__(self, frame_rate: int = 10, pix_fmt: str = 'rgb24', format: str = "mp4", *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.pix_fmt = pix_fmt
-        self.fps = fps
+        self.frame_rate = frame_rate
+        self.format = format
+
+        if self.format not in ['mp4', 'gif']:
+            raise ValueError("%s encoder has not been supported!" % (self.format))
+
+
+    def _encode(self, images: 'np.ndarray'):
+        encoder = None
+        if self.format == 'mp4':
+            encoder = video
+        elif self.format == 'gif':
+            encoder = gif
+
+        return encoder.encode_video(images, pix_fmt=self.pix_fmt, frame_rate=self.frame_rate)
 
     def apply(self, doc: 'gnes_pb2.Document') -> None:
         super().apply(doc)
         if len(doc.chunks) > 0:
             for chunk in doc.chunks:
                 images = blob2array(chunk.blob)
-                chunk.raw = gif.encode_gif(
-                    images, pix_fmt=self.pix_fmt, fps=self.fps)
+                chunk.raw = self._encode(images)
         elif doc.WhichOneof('raw_data'):
             raw_type = type(getattr(doc, doc.WhichOneof('raw_data')))
             if raw_type == gnes_pb2.NdArray:
                 images = blob2array(doc.raw_video)
-                doc.raw_bytes = gif.encode_gif(
-                    images, pix_fmt=self.pix_fmt, fps=self.fps)
+                doc.raw_bytes = self._encode(images)
             else:
                 self.logger.error('bad document: "doc.raw_video" is empty!')
         else:
