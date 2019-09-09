@@ -1,5 +1,6 @@
-!GifDecodePreprocessor
+!VideoDecodePreprocessor
 parameters:
   frame_rate: 10
+  scale: '299:299'
 gnes_config:
   is_trained: true

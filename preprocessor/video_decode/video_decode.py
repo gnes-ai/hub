@@ -18,25 +18,28 @@ from typing import List
 
 from gnes.preprocessor.base import BaseVideoPreprocessor
 from gnes.proto import gnes_pb2, array2blob
-from gnes.preprocessor.io_utils import gif
+from gnes.preprocessor.io_utils import video
 
 
-class GifDecodePreprocessor(BaseVideoPreprocessor):
+class VideoDecodePreprocessor(BaseVideoPreprocessor):
     store_args_kwargs = True
 
     def __init__(self,
                  frame_rate: int = 10,
+                 scale: str = None,
                  *args,
                  **kwargs):
         super().__init__(*args, **kwargs)
         self.frame_rate = frame_rate
+        self.scale = scale
 
     def apply(self, doc: 'gnes_pb2.Document') -> None:
         super().apply(doc)
 
         if doc.raw_bytes:
-            all_frames = gif.capture_frames(
+            all_frames = video.capture_frames(
                 input_data=doc.raw_bytes,
+                scale=self.scale,
                 fps=self.frame_rate)
 
             c = doc.chunks.add()
