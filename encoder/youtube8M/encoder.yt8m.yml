@@ -1,0 +1,24 @@
+!PipelineEncoder
+components:
+  - !YouTube8MFeatureExtractor
+    parameters:
+      model_dir: /model/inception_v3.ckpt
+      pca_dir: /model/pca
+      ignore_audio_feature: True
+    gnes_config:
+      name: YouTube8MFeatureExtractor
+      on_gpu: false
+      is_trained: true
+  - !YouTube8MEncoder
+    parameters:
+      model_dir: /model
+      model_name: RVLAD-avg-new
+    gnes_config:
+      name: YouTube8MModel
+      on_gpu: false
+      is_trained: true
+gnes_config:
+  name: YouTube8M
+  on_gpu: false
+  is_trained: true
+  work_dir: /save
