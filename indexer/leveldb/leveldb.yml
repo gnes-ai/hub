@@ -1,0 +1,6 @@
+!LVDBIndexer
+parameters:
+  data_path: /workspace
+gnes_config:
+  name: my_lvdb_indexer  # a customized name
+  work_dir: /workspace
