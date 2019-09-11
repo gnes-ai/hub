@@ -10,8 +10,6 @@ RUN pip install soundfile
 
 ADD *.py *.yml ./
 
-ADD vggish_example_helper/ ./vggish_example_helper
-
 ADD videos/ ./videos
 
-ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "preprocessor.vggish.yml", "--py_path", "vggish_example.py", "--read_only"]
+ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "preprocessor.vggish.yml", "--read_only"]
