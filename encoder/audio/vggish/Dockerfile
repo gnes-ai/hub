@@ -6,8 +6,6 @@ RUN pip install -U gnes --no-cache-dir --compile
 
 ADD *.py *.yml ./
 
-ADD vggish_cores/ ./vggish_cores
+VOLUME /model
 
-RUN python -m unittest test_vggish.py -v
-
-ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.vggish.yml", "--py_path", "vggish.py", "--read_only"]
+ENTRYPOINT ["gnes", "encode", "--yaml_path", "encoder.vggish.yml", "--read_only"]
