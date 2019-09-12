@@ -23,28 +23,27 @@ from gnes.service.base import ServiceManager
 from gnes.service.preprocessor import PreprocessorService
 
 
-class TestGifDecode(unittest.TestCase):
+class TestVideoDecode(unittest.TestCase):
 
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.yml_path = 'gif_decode.yml'
-        self.gif_path = os.path.join(self.dirname, 'gifs')
+        self.yml_path = 'video_decode.yml'
+        self.video_path = os.path.join(self.dirname, 'video')
 
-    def test_gif_decode_preprocessor(self):
+    def test_video_decode_preprocessor(self):
         args = set_preprocessor_parser().parse_args(
-            ['--yaml_path', self.yml_path, '--py_path', 'gif_decode.py'])
+            ['--yaml_path', self.yml_path, '--py_path', 'video_decode.py'])
         c_args = _set_client_parser().parse_args([
-            '--port_in',
-            str(args.port_out), '--port_out',
-            str(args.port_in)])
-        print(os.listdir(self.gif_path))
-        gif_bytes = [
-            open(os.path.join(self.gif_path, _), 'rb').read()
-            for _ in os.listdir(self.gif_path)
+            '--port_in', str(args.port_out),
+            '--port_out', str(args.port_in)])
+        print(os.listdir(self.video_path))
+        video_bytes = [
+            open(os.path.join(self.video_path, _), 'rb').read()
+            for _ in os.listdir(self.video_path)
         ]
 
         with ServiceManager(PreprocessorService, args), ZmqClient(c_args) as client:
-            for req in RequestGenerator.index(gif_bytes):
+            for req in RequestGenerator.index(video_bytes):
                 msg = gnes_pb2.Message()
                 msg.request.index.CopyFrom(req.index)
                 client.send_message(msg)
@@ -53,5 +52,4 @@ class TestGifDecode(unittest.TestCase):
                     self.assertGreater(len(d.chunks), 0)
                     for _ in range(len(d.chunks)):
                         shape = blob2array(d.chunks[_].blob).shape
-                        self.assertEqual(shape[1:], (299, 299, 3))
-
+                        self.assertEqual(shape, (1, 299, 299, 3))
