@@ -27,56 +27,25 @@ class TestShotDetector(unittest.TestCase):
 
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.histogram_yml_path = 'detector.histogram.yml'
-        self.edge_yml_path = 'detector.edge.yml'
-        self.video_path = os.path.join(self.dirname, 'videos')
+        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'shot.detector.yml')
+        self.video_path = os.path.join(self.dirname, 'test_data', 'test.mp4')
 
     def test_empty_service(self):
         args = set_preprocessor_parser().parse_args([
-            '--yaml_path', self.edge_yml_path, '--py_path', 'shot_detector.py'
+            '--yaml_path', self.yml_path
         ])
         with ServiceManager(PreprocessorService, args):
             pass
 
     def test_histogram(self):
         args = set_preprocessor_parser().parse_args([
-            '--yaml_path', self.histogram_yml_path, '--py_path',
-            'shot_detector.py'
+            '--yaml_path', self.yml_path
         ])
         c_args = _set_client_parser().parse_args(
             ['--port_in',
              str(args.port_out), '--port_out',
              str(args.port_in)])
-        video_bytes = [
-            open(os.path.join(self.video_path, _), 'rb').read()
-            for _ in os.listdir(self.video_path)
-        ]
-
-        with ServiceManager(PreprocessorService,
-                            args), ZmqClient(c_args) as client:
-            for req in RequestGenerator.index(video_bytes):
-                msg = gnes_pb2.Message()
-                msg.request.index.CopyFrom(req.index)
-                client.send_message(msg)
-                r = client.recv_message()
-                for d in r.request.index.docs:
-                    self.assertGreater(len(d.chunks), 0)
-                    for _ in range(len(d.chunks)):
-                        shape = blob2array(d.chunks[_].blob).shape
-                        self.assertEqual(shape[1:], (168, 192, 3))
-
-    def test_edge(self):
-        args = set_preprocessor_parser().parse_args([
-            '--yaml_path', self.edge_yml_path, '--py_path', 'shot_detector.py'
-        ])
-        c_args = _set_client_parser().parse_args(
-            ['--port_in',
-             str(args.port_out), '--port_out',
-             str(args.port_in)])
-        video_bytes = [
-            open(os.path.join(self.video_path, _), 'rb').read()
-            for _ in os.listdir(self.video_path)
-        ]
+        video_bytes = [open(self.video_path, 'rb').read()]
 
         with ServiceManager(PreprocessorService,
                             args), ZmqClient(c_args) as client:
