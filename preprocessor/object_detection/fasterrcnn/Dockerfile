@@ -17,4 +17,4 @@ RUN pip install opencv_python>=4.1.0 scipy
 
 RUN python -m unittest test_fasterrcnn.py -v
 
-ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "preprocessor.fasterrcnn.yml", "--py_path", "fasterrcnn.py", "resize.py", "--read_only"]
+ENTRYPOINT ["gnes", "preprocess", "--yaml_path", "preprocessor.fasterrcnn.yml", "--read_only"]
