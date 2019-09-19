@@ -26,13 +26,13 @@ class VideoDecodePreprocessor(BaseVideoPreprocessor):
 
     def __init__(self,
                  frame_rate: int = 10,
-                 frame_num: int = -1,
+                 vframes: int = -1,
                  scale: str = None,
                  *args,
                  **kwargs):
         super().__init__(*args, **kwargs)
         self.frame_rate = frame_rate
-        self.frame_num = frame_num
+        self.vframes = vframes
         self.scale = scale
 
     def apply(self, doc: 'gnes_pb2.Document') -> None:
@@ -43,7 +43,7 @@ class VideoDecodePreprocessor(BaseVideoPreprocessor):
                 input_data=doc.raw_bytes,
                 scale=self.scale,
                 fps=self.frame_rate,
-                vframes=self.frame_num)
+                vframes=self.vframes)
 
             c = doc.chunks.add()
             c.doc_id = doc.doc_id
