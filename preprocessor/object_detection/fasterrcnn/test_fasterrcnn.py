@@ -33,7 +33,7 @@ class TestFasterrcnn(unittest.TestCase):
 
     def test_fasterrcnn_preprocessor(self):
         args = set_preprocessor_parser().parse_args(
-            ['--yaml_path', self.fasterrcnn_yaml, '--py_path', 'fasterrcnn.py', 'resize.py'])
+            ['--yaml_path', self.fasterrcnn_yaml])
         c_args = _set_client_parser().parse_args([
             '--port_in',
             str(args.port_out), '--port_out',
