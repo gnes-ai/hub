@@ -1,0 +1,10 @@
+!MySQLIndexer
+parameters:
+  user: root
+  password: test123
+  host: 100.102.34.34
+  port: 3306
+  database: jemfu_db
+  table_name: doc_table_test
+gnes_config:
+  name: mysql_indexer
