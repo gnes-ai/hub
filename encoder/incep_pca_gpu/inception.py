@@ -19,7 +19,7 @@ from typing import List
 import numpy as np
 
 from gnes.encoder.base import BaseImageEncoder
-from gnes.helper import batching
+from gnes.helper import batching, get_first_available_gpu
 
 
 class TFInceptionEncoder(BaseImageEncoder):
@@ -39,7 +39,7 @@ class TFInceptionEncoder(BaseImageEncoder):
         import tensorflow as tf
         from inception_v4 import inception_v4
         from inception_utils import inception_arg_scope
-
+        os.environ['CUDA_VISIBLE_DEVICES'] = str(get_first_available_gpu())
         g = tf.Graph()
         with g.as_default():
             arg_scope = inception_arg_scope()
@@ -53,12 +53,16 @@ class TFInceptionEncoder(BaseImageEncoder):
                                                             dropout_keep_prob=1.0)
 
             config = tf.ConfigProto(log_device_placement=False)
+            if self.on_gpu:
+                config.gpu_options.allow_growth = True
             self.sess = tf.Session(config=config)
             self.saver = tf.train.Saver()
             self.saver.restore(self.sess, self.model_dir)
 
     def encode(self, img: List['np.ndarray'], *args, **kwargs) -> np.ndarray:
         img = [(im * 2 / 255. - 1.) for im in img]
+        if len(img) != 0 and img[0].ndim == 4:
+            img = [frame for im in img for frame in im]
 
         @batching
         def _encode(_, data):

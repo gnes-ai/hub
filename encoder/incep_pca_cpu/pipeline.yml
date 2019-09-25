@@ -1,0 +1,17 @@
+!PipelineEncoder
+components:
+  - !TFInceptionEncoder
+    parameters:
+      model_dir: /inception_v4/inception_v4.ckpt
+      batch_size: 64
+      select_layer: PreLogitsFlatten
+  - !PCAEncoder
+    parameters:
+      output_dim: 300
+    gnes_config:
+      name: pca_encoder
+gnes_config:
+  name: pipline_encoder
+  on_gpu: false
+  work_dir: /
+

@@ -4,7 +4,7 @@ import unittest
 
 from gnes.encoder.base import BaseEncoder
 
-class TestTFInceptionEncoder(unittest.TestCase):
+class TestPipelineEncoder(unittest.TestCase):
 
     def setUp(self):
         dirname = os.path.dirname(__file__)
@@ -12,14 +12,14 @@ class TestTFInceptionEncoder(unittest.TestCase):
         # one image with two chunks
         self.test_img = [[np.random.randint(0, 255, (299, 299, 3)).astype('uint8'),
                             np.random.randint(0, 255, (299, 299, 3)).astype('uint8')]]
-        self.yaml_path = os.path.join(dirname, 'inception.yml')
+        self.yaml_path = os.path.join(dirname, 'pipeline.yml')
 
-    def test_inception_encoding(self):
+    def test_pipline_encoding(self):
         self.encoder = BaseEncoder.load_yaml(self.yaml_path)
         for test_img in self.test_img:
             vec = self.encoder.encode(test_img)
             self.assertEqual(vec.shape[0], 2)
-            self.assertEqual(vec.shape[1], 1536)
+            self.assertEqual(vec.shape[1], 300)
 
     def test_dump_load(self):
         self.encoder = BaseEncoder.load_yaml(self.yaml_path)
@@ -31,7 +31,7 @@ class TestTFInceptionEncoder(unittest.TestCase):
         for test_img in self.test_img:
             vec = encoder2.encode(test_img)
             self.assertEqual(vec.shape[0], 2)
-            self.assertEqual(vec.shape[1], 1536)
+            self.assertEqual(vec.shape[1], 300)
 
     def tearDown(self):
         if os.path.exists(self.dump_path):
