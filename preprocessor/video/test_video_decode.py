@@ -27,16 +27,14 @@ class TestVideoDecode(unittest.TestCase):
 
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.yml_path = 'video_decode.yml'
-        self.video_path = os.path.join(self.dirname, 'video')
+        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'video_decode.yml')
+        self.video_path = os.path.join(self.dirname, 'test_data')
 
     def test_video_decode_preprocessor(self):
-        args = set_preprocessor_parser().parse_args(
-            ['--yaml_path', self.yml_path, '--py_path', 'video_decode.py'])
+        args = set_preprocessor_parser().parse_args(['--yaml_path', self.yml_path])
         c_args = _set_client_parser().parse_args([
             '--port_in', str(args.port_out),
             '--port_out', str(args.port_in)])
-        print(os.listdir(self.video_path))
         video_bytes = [
             open(os.path.join(self.video_path, _), 'rb').read()
             for _ in os.listdir(self.video_path)
@@ -52,4 +50,4 @@ class TestVideoDecode(unittest.TestCase):
                     self.assertGreater(len(d.chunks), 0)
                     for _ in range(len(d.chunks)):
                         shape = blob2array(d.chunks[_].blob).shape
-                        self.assertEqual(shape, (1, 299, 299, 3))
+                        self.assertEqual(shape[1:], (299, 299, 3))
