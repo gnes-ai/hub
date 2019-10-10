@@ -27,18 +27,16 @@ class TestVideoDecode(unittest.TestCase):
 
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'video_decode.yml')
-        self.video_path = os.path.join(self.dirname, 'test_data')
+        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'video_decoder.yml')
+        self.video_path = os.path.join(self.dirname, 'test_data', 'test.mp4')
 
     def test_video_decode_preprocessor(self):
         args = set_preprocessor_parser().parse_args(['--yaml_path', self.yml_path])
         c_args = _set_client_parser().parse_args([
             '--port_in', str(args.port_out),
             '--port_out', str(args.port_in)])
-        video_bytes = [
-            open(os.path.join(self.video_path, _), 'rb').read()
-            for _ in os.listdir(self.video_path)
-        ]
+
+        video_bytes = [open(self.video_path, 'rb').read()]
 
         with ServiceManager(PreprocessorService, args), ZmqClient(c_args) as client:
             for req in RequestGenerator.index(video_bytes):
