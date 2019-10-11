@@ -27,7 +27,7 @@ class TestVideoDecode(unittest.TestCase):
 
     def setUp(self):
         self.dirname = os.path.dirname(__file__)
-        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'video_decode.yml')
+        self.yml_path = os.path.join(self.dirname, 'test_yaml', 'video_decoder.yml')
         self.video_path = os.path.join(self.dirname, 'test_data')
 
     def test_video_decode_preprocessor(self):
