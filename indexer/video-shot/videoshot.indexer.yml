@@ -1,0 +1,7 @@
+!VideoShotIndexer
+  parameters:
+    data_path: /save/
+    file_format: jpeg
+  gnes-config:
+    work_dir: /save
+    name: shot-indexer
