@@ -9,31 +9,30 @@ class TestInceptEncoder(unittest.TestCase):
     def setUp(self):
         dirname = os.path.dirname(__file__)
         self.dump_path = os.path.join(dirname, 'model.bin')
-        # one image with two chunks
-        self.test_img = [[
-            np.random.randint(0, 255, (299, 299, 3)).astype('uint8'),
-            np.random.randint(0, 255, (299, 299, 3)).astype('uint8')
-        ]]
+        self.test_data = []
+        self.test_chunk_size = [3, 4, 5]
+
+        for n in self.test_chunk_size:
+            x = np.random.randint(0, 255, (n, 299, 299, 3)).astype('uint8')
+            self.test_data.append(x)
         self.yaml_path = os.path.join(dirname, 'video_inception.yml')
 
-    def test_encode(self):
         self.encoder = BaseEncoder.load_yaml(self.yaml_path)
-        for test_img in self.test_img:
-            vec = self.encoder.encode(test_img)
-            self.assertEqual(vec.shape[0], 2)
-            self.assertEqual(vec.shape[1], 300)
+
+    def test_encode(self):
+        encodes = self.encoder.encode(self.test_data)
+        self.assertEqual(len(encodes), len(self.test_data))
+        self.assertEqual([x.shape[0] for x in encodes], self.test_chunk_size)
+
 
     def test_dump_load(self):
-        self.encoder = BaseEncoder.load_yaml(self.yaml_path)
-
         self.encoder.dump(self.dump_path)
 
         encoder2 = BaseEncoder.load(self.dump_path)
 
-        for test_img in self.test_img:
-            vec = encoder2.encode(test_img)
-            self.assertEqual(vec.shape[0], 2)
-            self.assertEqual(vec.shape[1], 300)
+        encodes = encoder2.encode(self.test_data)
+        self.assertEqual(len(encodes), len(self.test_data))
+        self.assertEqual([x.shape[0] for x in encodes], self.test_chunk_size)
 
     def tearDown(self):
         if os.path.exists(self.dump_path):
