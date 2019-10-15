@@ -1,0 +1,10 @@
+!MySQLPreprocessor
+parameters:
+  user: root
+  password: test123
+  host: 100.102.34.61
+  port: 3306
+  database: jemfu_db
+  table_name: 55w_index
+gnes_config:
+  name: mysql_preprocessor

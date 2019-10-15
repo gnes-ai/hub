@@ -1,0 +1,5 @@
+!DirectoryPreprocessor
+  parameters:
+    data_path: /save
+  gnes_config:
+    name: DirectoryPreprocessor
