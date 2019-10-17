@@ -1,5 +1,3 @@
 !Webp2ArrayPreprocessor
-  parameters:
-    max_frame_per_chunk: 180
   gnes_config:
     name: Webp2ArrayPreprocessor

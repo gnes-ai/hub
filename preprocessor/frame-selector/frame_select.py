@@ -39,26 +39,26 @@ class FrameSelectPreprocessor(BaseVideoPreprocessor):
         if len(doc.chunks) > 0:
             for chunk in doc.chunks:
                 images = blob2array(chunk.blob)
-                self.logger.info("the length of shape of images: %d" % len(images.shape))
-                self.logger.info("the first dimension of images: %d" % images.shape[0])
-                self.logger.info("the second dimension of images: %d" % images.shape[1])
-                self.logger.info("the third dimension of images: %d" % images.shape[2])
-                self.logger.info("the fourth dimension of images: %d" % images.shape[3])
-                
-                images = np.array([np.array(Image.fromarray(img.astype('uint8')).resize((self.target_width, self.target_height))) 
-                                            for img in images])
+
                 if len(images) == 0:
                     self.logger.warning("this chunk has no frame!")
                 elif self.sframes == 1:
-                    idx = [int(len(images) / 2)]
-                    chunk.blob.CopyFrom(array2blob(images[idx]))
+                    idx = int(len(images) / 2)
+                    frame = np.array(Image.fromarray(images[idx].astype('uint8')).resize((self.target_width, self.target_height)))
+                    frame = np.expand_dims(frame, axis=0)
+                    chunk.blob.CopyFrom(array2blob(frame))
                 elif self.sframes > 0 and len(images) > self.sframes:
                     if len(images) >= 2 * self.sframes:
                         step = math.ceil(len(images) / self.sframes)
-                        chunk.blob.CopyFrom(array2blob(images[::step]))
+                        frames = images[::step]
                     else:
                         idx = np.sort(np.random.choice(len(images), self.sframes, replace=False))
-                        chunk.blob.CopyFrom(array2blob(images[idx]))
+                        frames = images[idx]
+
+                    frames = np.array(
+                        [np.array(Image.fromarray(img.astype('uint8')).resize((self.target_width, self.target_height)))
+                         for img in frames])
+                    chunk.blob.CopyFrom(array2blob(frames))
                 del images
         else:
             self.logger.error(

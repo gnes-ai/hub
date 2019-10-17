@@ -14,8 +14,6 @@
 #  limitations under the License.
 
 
-from typing import List
-import json
 import datetime
 
 from gnes.preprocessor.base import BaseVideoPreprocessor
@@ -30,6 +28,7 @@ class MySQLPreprocessor(BaseVideoPreprocessor):
                  port: str,
                  database: str,
                  table_name: str,
+                 drop_blob: bool = True,
                  *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -39,6 +38,7 @@ class MySQLPreprocessor(BaseVideoPreprocessor):
         self.database = database
         self.table_name = table_name
         self.load_db()
+        self.drop_blob = drop_blob
         self._NOT_FOUND = None
 
     def load_db(self):
@@ -62,17 +62,23 @@ class MySQLPreprocessor(BaseVideoPreprocessor):
         self.cursor.execute(create_table)
 
     def apply(self, docs: 'gnes_pb2.Document', *args, **kwargs) -> None:
-        import pymysql
 
         add_iterm = ("INSERT INTO " + self.table_name + "(doc_id, doc, create_time) VALUES (%s, %s, %s)")
-        docs.raw_bytes = b''
         timestamp = datetime.datetime.now()
         timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
-        data_iterm = (docs.doc_id, docs.SerializeToString(), timestamp)
-        self.cursor.execute(add_iterm, data_iterm)
 
-               
-        self.connection.commit()
+        if self.drop_blob:
+            for c in docs.chunks:
+                c.ClearField('content')
+
+        data_iterm = (docs.doc_id, docs.SerializeToString(), timestamp)
+
+        try:
+            self.cursor.execute(add_iterm, data_iterm)
+            self.connection.commit()
+        except Exception as e:
+            self.logger.warning("Insert failed for doc_id = %s. The reason is: %s" % (docs.doc_id, str(e)))
+
 
     def close(self):
         self.cursor.close()
