@@ -24,7 +24,7 @@ class Webp2ArrayPreprocessor(BaseVideoPreprocessor):
     def apply(self, doc: 'gnes_pb2.Document') -> None:
         super().apply(doc)
 
-        # self.logger.info("doc id is: %s" % str(doc.doc_id))
+        self.logger.info("doc id is: %s" % str(doc.doc_id))
         # self.logger.info("this doc has chunks: %d! for doc %s" % (len(doc.chunks), str(doc.doc_id)))
 
         total_frames = 0
@@ -51,7 +51,7 @@ class Webp2ArrayPreprocessor(BaseVideoPreprocessor):
             del dec
             # self.logger.info("done process webp! for chunk offset %s" % str(offset))
 
-        # self.logger.info("this doc has frames: %d! for doc %s" % (total_frames, str(doc.doc_id)))
+        self.logger.info("this doc has frames: %d! for doc %s" % (total_frames, str(doc.doc_id)))
 
         for c in doc.chunks:
             c.weight /= total_frames

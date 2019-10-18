@@ -1,6 +1,6 @@
 !FaissIndexer
 parameters:
-  num_dim: 300
+  num_dim: 1536
   index_key: HNSW32
   data_path: /workspace/idx.faiss
 gnes_config:

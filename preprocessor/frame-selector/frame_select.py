@@ -46,6 +46,9 @@ class FrameSelectPreprocessor(BaseVideoPreprocessor):
                     idx = int(len(images) / 2)
                     frame = np.array(Image.fromarray(images[idx].astype('uint8')).resize((self.target_width, self.target_height)))
                     frame = np.expand_dims(frame, axis=0)
+                    # self.logger.info("choose one frame, the shape is: (%d, %d, %d, %d)" % (
+                    #     frame.shape[0], frame.shape[1], frame.shape[2], frame.shape[3]
+                    # ))
                     chunk.blob.CopyFrom(array2blob(frame))
                 elif self.sframes > 0 and len(images) > self.sframes:
                     if len(images) >= 2 * self.sframes:

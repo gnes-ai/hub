@@ -62,14 +62,17 @@ class MySQLPreprocessor(BaseVideoPreprocessor):
         self.cursor.execute(create_table)
 
     def apply(self, docs: 'gnes_pb2.Document', *args, **kwargs) -> None:
+        import sys
 
         add_iterm = ("INSERT INTO " + self.table_name + "(doc_id, doc, create_time) VALUES (%s, %s, %s)")
         timestamp = datetime.datetime.now()
         timestamp = timestamp.strftime("%Y-%m-%d %H:%M:%S")
 
+        self.logger.info("before drop blob %s" % str(sys.getsizeof(docs.SerializeToString())))
         if self.drop_blob:
             for c in docs.chunks:
                 c.ClearField('content')
+        self.logger.info("after drop blob %s" % str(sys.getsizeof(docs.SerializeToString())))
 
         data_iterm = (docs.doc_id, docs.SerializeToString(), timestamp)
 
@@ -78,7 +81,6 @@ class MySQLPreprocessor(BaseVideoPreprocessor):
             self.connection.commit()
         except Exception as e:
             self.logger.warning("Insert failed for doc_id = %s. The reason is: %s" % (docs.doc_id, str(e)))
-
 
     def close(self):
         self.cursor.close()

@@ -1,0 +1,12 @@
+!I3dEncoder
+parameters:
+  model_dir: /checkpoints/rgb_scratch/model.ckpt
+  output_layer: 'Mixed_5c'
+  num_classes: 400
+  frame_size_x: 224
+  frame_size_y: 224
+  num_frame_per_clib: 16
+  rgb_channels: 3
+  on_gpu: true
+gnes_config:
+  is_trained: false

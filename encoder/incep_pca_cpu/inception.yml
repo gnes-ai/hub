@@ -1,0 +1,10 @@
+!TFInceptionEncoder
+parameters:
+  model_dir: /inception_v4/inception_v4.ckpt
+  batch_size: 64
+  select_layer: PreLogitsFlatten
+gnes_config:
+  name: inception_v4
+  on_gpu: false
+  work_dir: /
+
