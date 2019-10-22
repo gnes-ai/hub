@@ -13,11 +13,11 @@ RUN cd /; mkdir inception_v4 \
 RUN pip install pillow GPUtil  --no-cache-dir
 
 #RUN pip install -U gnes --no-cache-dir --compile
-RUN echo "3"
-RUN pip install git+https://github.com/gnes-ai/gnes.git@incep_encoder
+RUN echo "1"
+RUN pip install git+https://github.com/gnes-ai/gnes.git@master --compile
 
 
 ADD test_video_incept.py video_inception.yml ./
 RUN python -m unittest test_video_incept.py -v
 
-ENTRYPOINT ["gnes", "encode"]
+ENTRYPOINT ["gnes"]
