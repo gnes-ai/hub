@@ -47,15 +47,15 @@ class TestInceptEncoder(unittest.TestCase):
         with ServiceManager(EncoderService, args):
             pass
 
-    def test_encoder_service(self):
-        args = set_encoder_parser().parse_args([
-            '--yaml_path', self.yaml_path
-        ])
-        c_args = _set_client_parser().parse_args(
-            ['--port_in',
-             str(args.port_out), '--port_out',
-             str(args.port_in)])
-        with ServiceManager(EncoderService, args), ZmqClient(c_args) as client:
+    # def test_encoder_service(self):
+    #     args = set_encoder_parser().parse_args([
+    #         '--yaml_path', self.yaml_path
+    #     ])
+    #     c_args = _set_client_parser().parse_args(
+    #         ['--port_in',
+    #          str(args.port_out), '--port_out',
+    #          str(args.port_in)])
+    #     with ServiceManager(EncoderService, args), ZmqClient(c_args) as client:
 
 
     def tearDown(self):
