@@ -1,0 +1,3 @@
+!RerankRouter
+parameters:
+  model_name: bert-base-uncased
