@@ -13,7 +13,7 @@ class TestReranker(unittest.TestCase):
     def setUp(self):
         dirname = os.path.dirname(__file__)
         self.rerank_router_yaml = os.path.join(dirname, 'yaml', 'test-reranker.yml')
-        self.python_code = os.path.join(dirname, 'rerank_transformer.py')
+        self.python_code = os.path.join(dirname, 'rerank_transformers.py')
 
         self.test_str = []
         with open(os.path.join(dirname, 'sonnets_small.txt')) as f:
