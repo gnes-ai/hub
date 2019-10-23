@@ -12,7 +12,7 @@ class TestReranker(unittest.TestCase):
 
     def setUp(self):
         dirname = os.path.dirname(__file__)
-        self.rerank_router_yaml = os.path.join(dirname, 'yaml', 'test-reranker.yml')
+        self.rerank_router_yaml = os.path.join(dirname,'rerank_transformers.yml')
         self.python_code = os.path.join(dirname, 'rerank_transformers.py')
 
         self.test_str = []
