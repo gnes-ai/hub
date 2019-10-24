@@ -1,0 +1,7 @@
+!VideoDecoderPreprocessor
+parameters:
+  frame_rate: 5
+  vframes: 1
+  frame_size: '299:299'
+gnes_config:
+  is_trained: true

@@ -13,10 +13,12 @@ class TestVideoEncoder(unittest.TestCase):
         self.dirname = os.path.dirname(__file__)
         self.mp4_yaml_path = os.path.join(self.dirname, 'test_yaml', 'mp4.encoder.yml')
         self.gif_yaml_path = os.path.join(self.dirname, 'test_yaml', 'gif.encoder.yml')
+        self.webp_yaml_path = os.path.join(self.dirname, 'test_yaml', 'webp.encoder.yml')
         self.dump_path = os.path.join(self.dirname, 'video_encoder.bin')
         self.frames_path = os.path.join(self.dirname, 'test_data', 'test_frames.npy')
         self.mp4_encoder = BaseVideoPreprocessor.load_yaml(self.mp4_yaml_path)
         self.gif_encoder = BaseVideoPreprocessor.load_yaml(self.gif_yaml_path)
+        self.webp_encoder = BaseVideoPreprocessor.load_yaml(self.webp_yaml_path)
         self.video_frames = np.load(self.frames_path)
 
 
@@ -52,6 +54,24 @@ class TestVideoEncoder(unittest.TestCase):
         chunk = doc.chunks.add()
         chunk.blob.CopyFrom(raw_data)
         self.gif_encoder.apply(doc)
+        doc2 = copy.deepcopy(doc)
+
+        self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
+
+    def test_webp_encoder(self):
+        raw_data = array2blob(self.video_frames)
+
+        doc = gnes_pb2.Document()
+        doc.doc_type = gnes_pb2.Document.VIDEO
+        doc.raw_video.CopyFrom(raw_data)
+        self.webp_encoder.apply(doc)
+        doc1 = copy.deepcopy(doc)
+
+        doc = gnes_pb2.Document()
+        doc.doc_type = gnes_pb2.Document.VIDEO
+        chunk = doc.chunks.add()
+        chunk.blob.CopyFrom(raw_data)
+        self.webp_encoder.apply(doc)
         doc2 = copy.deepcopy(doc)
 
         self.assertEqual(doc1.raw_bytes, doc2.chunks[0].raw)
