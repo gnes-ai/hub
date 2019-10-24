@@ -1,0 +1,8 @@
+!RerankRouter
+parameters:
+  model_name: bert-base-uncased
+gnes_config:
+  name: transformer_rerank
+  is_trained: true
+  work_dir: /tmp
+  batch_size: 128
