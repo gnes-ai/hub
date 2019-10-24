@@ -1,0 +1,7 @@
+!FrameSelectPreprocessor
+  parameters:
+    sframes: 1
+    target_width: 299
+    target_height: 299
+  gnes_config:
+    name: FrameSelectPreprocessor

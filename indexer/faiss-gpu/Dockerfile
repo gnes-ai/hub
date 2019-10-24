@@ -25,9 +25,9 @@ RUN apt-get install -y curl grep sed dpkg && \
 
 RUN apt-get update && apt-get install -y build-essential && \
     /opt/conda/bin/conda install faiss-gpu cudatoolkit=10.0 -c pytorch && \
-    /opt/conda/bin/pip install gnes --no-cache-dir --compile && \
+    /opt/conda/bin/pip install git+https://github.com/gnes-ai/gnes.git --no-cache-dir --compile && \
     rm -rf /var/lib/apt/lists/*
 
-ADD *.py *.yml ./
+ADD *.yml ./
 
-ENTRYPOINT ["/opt/conda/bin/gnes", "index", "--yaml_path", "faiss.yml", "--py_path", "_faiss.py"]
+ENTRYPOINT ["/opt/conda/bin/gnes", "index", "--yaml_path", "faiss.yml"]

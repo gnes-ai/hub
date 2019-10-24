@@ -1,0 +1,6 @@
+!ResizeChunkPreprocessor
+  parameters:
+    target_width: 299
+    target_height: 299
+  gnes_config:
+    name: ResizeChunkPreprocessor
