@@ -13,8 +13,8 @@ RUN cd /; mkdir inception_v4 \
 RUN pip install pillow GPUtil  --no-cache-dir
 
 #RUN pip install -U gnes --no-cache-dir --compile
-RUN echo "1"
-RUN pip install git+https://github.com/gnes-ai/gnes.git@master --compile
+RUN echo "2"
+RUN pip install -U git+https://github.com/gnes-ai/gnes.git@fix-encoder-srv --compile
 
 
 ADD test_video_incept.py video_inception.yml ./
